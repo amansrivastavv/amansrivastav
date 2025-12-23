@@ -146,7 +146,7 @@ export const Projects = () => {
           <div className="w-12 h-px bg-cyan-500" />
           <span className="text-cyan-500 font-bold tracking-[0.4em] text-[10px] uppercase">Selected Works</span>
         </div>
-        <h2 className="text-5xl md:text-7xl font-serif font-black text-white leading-tight">
+        <h2 className="text-4xl md:text-7xl font-serif font-black text-white leading-tight">
           VISUAL <br /> <span className="text-white/10 italic">ARCHIVE</span>
         </h2>
       </div>

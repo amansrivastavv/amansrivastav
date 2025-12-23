@@ -12,7 +12,7 @@ const skillCategories = [
     skills: [
       { name: "React / Next.js", level: 98, tags: ["SSR", "Hooks"] },
       { name: "Tailwind CSS", level: 98, tags: ["Design Systems"] },
-      { name: "Three.js / GSAP", level: 90, tags: ["WebGL", "Animations"] },
+      { name: "Framer Motion / GSAP", level: 90, tags: ["WebGL", "Animations"] },
       { name: "Angular", level: 85, tags: ["Enterprise"] }
     ],
     className: "md:col-span-2"

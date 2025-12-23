@@ -11,7 +11,7 @@ export const Footer = () => {
           
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-8">
-            <h2 className="text-6xl md:text-9xl font-serif font-black text-white/5 tracking-tighter leading-none select-none">
+            <h2 className="text-[18vw] md:text-9xl font-serif font-black text-white/5 tracking-tighter leading-none select-none">
               AMAN
             </h2>
             <p className="text-xl text-neutral-400 font-light max-w-md">
