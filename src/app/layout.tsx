@@ -1,0 +1,42 @@
+import type { Metadata } from "next";
+import { Inter, Playfair_Display } from "next/font/google";
+import "./globals.css";
+import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { Navbar } from "@/components/layout/Navbar";
+import { CustomCursor } from "@/components/ui/CustomCursor";
+
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+});
+
+export const metadata: Metadata = {
+  title: "Aman | Full Stack Developer & Designer",
+  description: "Full Stack Developer Portfolio showcasing pixel-perfect designs and advanced animations.",
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" className="dark scroll-smooth">
+      <body
+        className={`${inter.variable} ${playfair.variable} antialiased bg-[#030014] text-white overflow-x-hidden`}
+      >
+        <div className="noise-overlay" />
+        <CustomCursor />
+        <SmoothScroll>
+          <Navbar />
+          {children}
+        </SmoothScroll>
+      </body>
+    </html>
+  );
+}
