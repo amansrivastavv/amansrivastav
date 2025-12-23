@@ -51,7 +51,7 @@ export const Hero = () => {
         
         {/* Ghost Typography */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none opacity-[0.02] select-none">
-          <h2 className="text-[30vw] font-serif font-black leading-none">CREATIVE</h2>
+          <h2 className="text-[30vw] font-serif font-black leading-none whitespace-nowrap">CREATIVE</h2>
         </div>
       </div>
 
@@ -88,7 +88,7 @@ export const Hero = () => {
           </motion.p>
         </div>
 
-        <h1 className="text-[11vw] md:text-[8.5vw] leading-[0.85] font-serif font-black mb-10 select-none">
+        <h1 className="text-[13vw] md:text-[8.5vw] leading-[0.85] font-serif font-black mb-10 select-none">
           <div className="overflow-hidden inline-block mr-4">
             <span ref={title1Ref} className="inline-block text-white">AMAN</span>
           </div>
@@ -133,7 +133,7 @@ export const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.2, duration: 1 }}
-        className="absolute bottom-16 right-12 z-10 flex flex-col items-center gap-8 md:gap-16"
+        className="absolute bottom-16 right-12 z-10 hidden md:flex flex-col items-center gap-8 md:gap-16"
       >
         <p className="text-[10px] uppercase tracking-[0.5em] rotate-90 origin-right text-neutral-500 font-bold whitespace-nowrap">
           The Journey Starts Here

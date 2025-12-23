@@ -53,14 +53,14 @@ const skillCategories = [
 
 export const Skills = () => {
   return (
-    <section id="skills" className="py-32 relative bg-[#030014] overflow-hidden">
+    <section id="skills" className="py-16 md:py-32 relative bg-[#030014] overflow-hidden">
       {/* Background Depth */}
       <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none" />
       
       <div className="container mx-auto px-4">
-        <div className="flex flex-col items-center text-center mb-32">
+        <div className="flex flex-col items-center text-center mb-16 md:mb-32">
           <span className="text-cyan-500 font-bold tracking-[0.5em] text-[10px] uppercase mb-4">Architecture</span>
-          <h2 className="text-6xl md:text-9xl font-serif font-black text-white italic">
+          <h2 className="text-4xl md:text-9xl font-serif font-black text-white italic">
             TECHNICAL <span className="text-white/10 not-italic">DNA</span>
           </h2>
         </div>
@@ -74,7 +74,7 @@ export const Skills = () => {
               transition={{ delay: i * 0.1 }}
               viewport={{ once: true }}
               className={cn(
-                "group relative p-10 rounded-[2.5rem] bg-zinc-900/50 border border-white/5 hover:border-cyan-500/20 transition-all duration-700",
+                "group relative p-6 md:p-10 rounded-[2.5rem] bg-zinc-900/50 border border-white/5 hover:border-cyan-500/20 transition-all duration-700",
                 category.className
               )}
             >
