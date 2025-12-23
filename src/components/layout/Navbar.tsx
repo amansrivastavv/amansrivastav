@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence, useScroll, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useScroll } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, User, Briefcase, Mail, Zap, FileText, BookOpen } from "lucide-react";
@@ -52,7 +52,7 @@ export const Navbar = () => {
         transition={{ duration: 0.3, ease: "easeInOut" }}
         className="fixed top-6 inset-x-0 mx-auto z-[5000] w-max hidden md:flex"
       >
-        <div className="flex items-center gap-2 p-2 rounded-full border border-white/10 bg-black/60 backdrop-blur-md shadow-2xl">
+        <div className="flex items-center gap-2 p-1.5 rounded-full border border-white/5 bg-white/[0.03] backdrop-blur-[12px] shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
           {navItems.map((item, idx) => {
             const isActive = pathname === item.link || (pathname === "/" && item.link === "/#home");
             
@@ -61,15 +61,15 @@ export const Navbar = () => {
                 key={idx}
                 href={item.link}
                 className={cn(
-                  "relative px-5 py-2.5 rounded-full text-sm font-medium transition-all group",
-                  isActive ? "text-white" : "text-neutral-400 hover:text-white"
+                  "relative px-5 py-2.5 rounded-full text-xs font-medium tracking-wide transition-all group overflow-hidden",
+                  isActive ? "text-white" : "text-white/60 hover:text-white"
                 )}
               >
                 <span className="relative z-10">{item.name}</span>
                 {isActive && (
                   <motion.div 
                     layoutId="desktop-nav-active"
-                    className="absolute inset-0 rounded-full bg-white/10 border border-white/5"
+                    className="absolute inset-0 rounded-full bg-white/10 mix-blend-overlay border border-white/10"
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
                 )}
@@ -82,11 +82,10 @@ export const Navbar = () => {
             );
           })}
           
-          <div className="w-px h-5 bg-white/10 mx-2" />
+          <div className="w-px h-4 bg-white/10 mx-2" />
           
-          <button className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-black font-bold text-sm tracking-wide hover:bg-cyan-400 transition-colors">
+          <button className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-black font-bold text-xs tracking-widest hover:bg-cyan-200 transition-colors">
             <span>RESUME</span>
-            <FileText className="w-3 h-3" />
           </button>
         </div>
       </motion.nav>
@@ -102,7 +101,7 @@ export const Navbar = () => {
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         className="fixed bottom-6 inset-x-0 mx-auto z-[5000] w-max md:hidden"
       >
-        <div className="flex items-center gap-1 p-2 rounded-2xl border border-white/10 bg-black/80 backdrop-blur-xl shadow-2xl shadow-black/50">
+        <div className="flex items-center gap-1 p-2 rounded-2xl border border-white/5 bg-black/60 backdrop-blur-xl shadow-2xl">
           {navItems.map((item, idx) => {
              const isActive = pathname === item.link || (pathname === "/" && item.link === "/#home");
 
@@ -112,14 +111,14 @@ export const Navbar = () => {
                 href={item.link}
                 className={cn(
                   "relative flex flex-col items-center justify-center w-12 h-12 rounded-xl transition-all",
-                  isActive ? "text-white" : "text-neutral-500 hover:text-cyan-400"
+                  isActive ? "text-white" : "text-neutral-500 hover:text-white"
                 )}
               >
                 <span className="relative z-10">{item.icon}</span>
                 {isActive && (
                   <motion.div 
                     layoutId="mobile-dock-active"
-                    className="absolute inset-0 rounded-xl bg-white/10 border border-white/5 shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                    className="absolute inset-0 rounded-xl bg-white/10 border border-white/5"
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
                 )}

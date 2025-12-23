@@ -5,6 +5,8 @@ import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { Navbar } from "@/components/layout/Navbar";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 
+import { SignaturePreloader } from "@/components/ui/SignaturePreloader";
+
 const inter = Inter({ 
   subsets: ["latin"],
   variable: "--font-inter",
@@ -30,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${playfair.variable} antialiased bg-[#030014] text-white overflow-x-hidden`}
       >
+        <SignaturePreloader />
         <div className="noise-overlay" />
         <CustomCursor />
         <SmoothScroll>

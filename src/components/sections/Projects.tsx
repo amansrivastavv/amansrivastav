@@ -85,25 +85,34 @@ export const Projects = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  // useLayoutEffect prevents flicker and ensures DOM is ready before we measure
+  React.useLayoutEffect(() => {
     let ctx = gsap.context(() => {
-      // Small delay to ensure layout is settled
-      setTimeout(() => {
+      // Ensure we have valid elements
+      if (!containerRef.current || !sectionRef.current || !progressRef.current) return;
+
+      const setupAnimation = () => {
         const totalWidth = containerRef.current!.scrollWidth;
         const windowWidth = window.innerWidth;
+        
+        // If content fits in viewport (unlikely but possible on huge screens), no scroll needed
+        if (totalWidth <= windowWidth) return;
+
         const scrollDistance = totalWidth - windowWidth;
 
         // Main horizontal animation
         gsap.to(containerRef.current, {
-          x: () => -scrollDistance,
+          x: -scrollDistance,
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
             pin: true,
             scrub: 1,
+            // Use function based values to support resizing better
             start: "top top",
             end: () => `+=${scrollDistance}`,
             invalidateOnRefresh: true,
+            anticipatePin: 1, // Helps with smoother pinning
           },
         });
 
@@ -119,7 +128,14 @@ export const Projects = () => {
             invalidateOnRefresh: true,
           },
         });
-      }, 100); // 100ms delay for safety
+      };
+
+      // Initial setup
+      setupAnimation();
+      
+      // Refresh ScrollTrigger to ensure all positions are correct
+      ScrollTrigger.refresh();
+
     }, sectionRef);
 
     return () => ctx.revert();
