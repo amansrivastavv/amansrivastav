@@ -5,7 +5,7 @@ import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { Navbar } from "@/components/layout/Navbar";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 
-import { SignaturePreloader } from "@/components/ui/SignaturePreloader";
+import { PremiumPreloader } from "@/components/ui/PremiumPreloader";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -28,11 +28,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
       <body
         className={`${inter.variable} ${playfair.variable} antialiased bg-[#030014] text-white overflow-x-hidden`}
       >
-        <SignaturePreloader />
+        <PremiumPreloader />
         <div className="noise-overlay" />
         <CustomCursor />
         <SmoothScroll>
