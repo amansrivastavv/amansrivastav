@@ -97,7 +97,7 @@ const Card = ({
           top: `calc(-10vh + ${i * 45}px)` 
         }} 
         className={cn(
-          "relative flex flex-col md:flex-row -top-[15%] h-[700px] w-full max-w-[1200px] rounded-[3rem] overflow-hidden origin-top shadow-[0_20px_50px_rgba(0,0,0,0.7)] border border-white/5 transition-all duration-700 bg-gradient-to-br backdrop-blur-3xl",
+          "relative flex flex-col md:flex-row -top-[15%] h-[700px] w-full max-w-[1200px] rounded-[3rem] overflow-hidden origin-top shadow-[0_20px_50px_rgba(0,0,0,0.7)] border border-white/5 transition-all duration-700 bg-gradient-to-br backdrop-blur-xl will-change-transform",
           item.gradient,
           item.border
         )}
@@ -187,7 +187,7 @@ export default function StoryPage() {
            <div className="relative z-10 text-center space-y-6">
               <span className="inline-block text-[10px] font-bold uppercase tracking-[0.6em] text-neutral-500">The Chronology</span>
               
-              <h1 className="text-[18vw] md:text-[14vw] font-serif font-medium leading-[0.8] tracking-tighter mix-blend-difference select-none">
+               <h1 className="text-[15vw] md:text-[14vw] font-serif font-medium leading-[0.8] tracking-tighter mix-blend-difference select-none leading-none">
                 <span className="block italic opacity-40">visual</span>
                 <span className="block">memoir</span>
               </h1>

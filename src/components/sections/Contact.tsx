@@ -164,7 +164,7 @@ export const Contact = () => {
                        required
                        onFocus={() => setFocusedField("name")}
                        onBlur={() => setFocusedField(null)}
-                       className="w-full bg-transparent text-2xl font-light text-white focus:outline-none placeholder:text-neutral-700/50 h-8"
+                       className="w-full bg-transparent text-2xl font-light text-white focus:outline-none placeholder:text-neutral-700/50 h-12"
                        placeholder=""
                      />
                   </div>
@@ -182,7 +182,7 @@ export const Contact = () => {
                        required
                        onFocus={() => setFocusedField("email")}
                        onBlur={() => setFocusedField(null)}
-                       className="w-full bg-transparent text-2xl font-light text-white focus:outline-none placeholder:text-neutral-700/50 h-8"
+                       className="w-full bg-transparent text-2xl font-light text-white focus:outline-none placeholder:text-neutral-700/50 h-12"
                        placeholder=""
                      />
                   </div>
