@@ -18,8 +18,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Aman | Full Stack Developer & Designer",
-  description: "Full Stack Developer Portfolio showcasing pixel-perfect designs and advanced animations.",
+  title: "Aman | Frontend Developer & Designer",
+  description: "Frontend Developer Portfolio showcasing pixel-perfect designs and advanced animations.",
 };
 
 export default function RootLayout({

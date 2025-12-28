@@ -170,7 +170,7 @@ export const Projects = () => {
       {/* Projects Scroller */}
       <div 
         ref={containerRef} 
-        className="flex h-screen items-center px-[10vw] gap-[8vw] will-change-transform"
+        className="flex h-screen items-center px-6 md:px-[10vw] gap-[8vw] will-change-transform"
       >
         {/* Spacer for the Title */}
         <div className="flex-shrink-0 w-[20vw] md:w-[30vw]" />

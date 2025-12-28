@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 export const Hero = () => {
@@ -119,18 +120,16 @@ export const Hero = () => {
 
       <motion.div 
         style={{ y, scale, opacity }}
-        className="relative z-10 container mx-auto px-4 text-center mix-blend-screen"
+        className="relative z-10 container mx-auto px-6 text-center mix-blend-screen"
       >
         <div className="mb-8 overflow-hidden flex justify-center">
-          <p className="hero-detail text-cyan-400 uppercase tracking-[0.6em] text-[10px] font-bold inline-flex items-center gap-4">
-            <span className="w-4 h-4 border border-cyan-500/50 rounded-full flex items-center justify-center">
-                <span className="w-1 h-1 bg-cyan-400 rounded-full animate-ping" />
-            </span>
-            Full Stack Developer & Designer
+          <p className="hero-detail text-cyan-400 uppercase tracking-[0.2em] text-xs font-bold inline-flex items-center gap-4">
+            <span className="w-2 h-2 bg-cyan-400 rounded-full animate-ping" />
+            Frontend Developer & Designer
           </p>
         </div>
 
-        <h1 className="text-[15vw] md:text-[10vw] leading-[0.8] font-serif font-black mb-12 select-none tracking-tighter text-white mix-blend-difference">
+        <h1 className="text-6xl md:text-[10vw] leading-[0.9] md:leading-[0.8] font-serif font-black mb-12 select-none tracking-tighter text-white mix-blend-difference">
           <div className="block overflow-hidden" ref={title1Ref}>
             {splitText("AMAN")}
           </div>

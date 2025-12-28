@@ -66,7 +66,7 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-32 relative bg-[#030014] overflow-hidden">
+    <section id="contact" className="relative py-32 md:py-48 bg-[#030014] overflow-hidden">
       
       {/* Particle Background - The "Cosmic Connection" */}
       <ParticleBackground />
@@ -74,7 +74,7 @@ export const Contact = () => {
       {/* Dark Overlay to ensure readability */}
       <div className="absolute inset-0 bg-black/40 pointer-events-none" />
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-24">
           
           {/* Left: Manifesto & Info */}

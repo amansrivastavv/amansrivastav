@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { ArrowUp, Github, Linkedin, Twitter } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -16,9 +17,16 @@ export const Footer = () => {
     <div className="relative w-full bg-[#050505] border-t border-white/5">
         <div className="flex flex-col justify-end pb-12">
              <div className="container mx-auto px-4 pt-32 relative">
-                {/* Massive Brand Text - Background */}
-                <div className="absolute -top-32 left-0 w-full pointer-events-none opacity-[0.03] select-none overflow-hidden">
-                    <span className="text-[25vw] font-black leading-none text-white whitespace-nowrap">AMAN</span>
+                {/* Massive Brand - Background Logo */}
+                <div className="absolute -top-32 left-0 w-full pointer-events-none opacity-[0.03] select-none overflow-hidden flex justify-center">
+                    <div className="relative w-[50vw] h-[50vw]">
+                       <Image 
+                         src="/logo-white.png" 
+                         alt="Background Logo" 
+                         fill
+                         className="object-contain"
+                       />
+                    </div>
                 </div>
 
                 <div className="flex flex-col lg:flex-row justify-between gap-16 mb-24 relative z-20">
