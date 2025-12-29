@@ -8,7 +8,7 @@ export const siteMetadata: Metadata = {
 
 
   description:
-    "Portfolio of Aman Srivastav, a Creative Frontend Developer from India. Specializing in React, Next.js, and pixel-perfect UI design. Building high-performance web solutions for clients in Noida, Delhi NCR, and Worldwide.",
+    "Aman Srivastav: Creative Frontend Developer specializing in React, Next.js, and pixel-perfect UI design. Building high-performance web solutions.",
 
   // BASE URL: Important for images to work
   metadataBase: new URL("https://www.amansrivastav.com"),
@@ -54,7 +54,7 @@ export const siteMetadata: Metadata = {
     url: "https://www.amansrivastav.com",
     title: "Aman Srivastav | Creative Frontend Developer & Designer",
     description:
-      "Creative Frontend Developer from India specializing in React, Next.js, and modern UI. Check out my pixel-perfect web projects.",
+      "Aman Srivastav: Creative Frontend Developer specializing in React, Next.js, and pixel-perfect UI design. Building high-performance web solutions.",
     siteName: "Aman Srivastav Portfolio",
     images: [
       {
@@ -76,7 +76,9 @@ export const siteMetadata: Metadata = {
   },
 
   icons: {
-    icon: "/favicon.ico",
+    icon: "/signature_logo_light_png.png",
+    shortcut: "/signature_logo_light_png.png",
+    apple: "/signature_logo_light_png.png",
   },
 
   // ROBOTS: Google ko full access dene ke liye
