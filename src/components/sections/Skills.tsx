@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Matter from "matter-js";
+import { useInView } from "framer-motion";
 
 const skillsData = [
   // Frontend
@@ -41,9 +42,11 @@ export const Skills = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const isInView = useInView(containerRef, { once: true, amount: 0.2 });
 
   useEffect(() => {
-    if (!containerRef.current || !canvasRef.current) return;
+    // Only start the simulation when the user scrolls the section into view
+    if (!isInView || !containerRef.current || !canvasRef.current) return;
 
     const Engine = Matter.Engine,
       Render = Matter.Render,
@@ -143,6 +146,12 @@ export const Skills = () => {
     Composite.add(world, mouseConstraint);
     render.mouse = mouse;
 
+    // Allow scrolling by removing Matter.js default wheel blocking
+    // @ts-ignore
+    mouse.element.removeEventListener("wheel", mouse.mousewheel);
+    // @ts-ignore
+    mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
+
     // Custom Rendering for Text
     Events.on(render, "afterRender", () => {
         const context = render.context;
@@ -203,7 +212,7 @@ export const Skills = () => {
       Engine.clear(engine);
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [isInView]);
 
   return (
     <section id="skills" className="py-32 bg-[#020202] text-white relative overflow-hidden min-h-[100vh]">
@@ -222,7 +231,7 @@ export const Skills = () => {
 
       <div 
         ref={containerRef} 
-        className="w-full h-[60vh] md:h-[70vh] relative cursor-grab active:cursor-grabbing border-y border-white/5 bg-neutral-900/10"
+        className="w-full h-[60vh] md:h-[70vh] relative cursor-grab active:cursor-grabbing border-y border-white/5 bg-neutral-900/10 touch-pan-y"
       >
           <canvas ref={canvasRef} className="block w-full h-full" />
           

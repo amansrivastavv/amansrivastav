@@ -29,7 +29,7 @@ const timeline = [
     description: "A defining milestone. Graduating with a Computer Science degree wasn't just a certificate—it was the culmination of four years of relentless coding and problem solving.",
     image: "/images/story/convocation.jpg",
     tech: ["C++", "Java", "DSA", "DBMS"],
-    achievements: ["Top 5% of Class", "Hackathon Finalist"],
+    achievements: ["First Division", "Hackathon Finalist"],
     color: "from-violet-500/20 to-transparent",
     isPortrait: true
   },
@@ -41,7 +41,7 @@ const timeline = [
     description: "Transitioning from theory to practice. Mastering pixel-perfect UIs and shipping production-grade software in a fast-paced environment.",
     image: "/images/story/gventure.png",
     tech: ["React.js", "Redux", "Material UI", "Git"],
-    achievements: ["Reduced Load Time by 40%", "Built Design System"],
+    achievements: ["Reduced Load Time", "Built Design System"],
     color: "from-teal-500/20 to-transparent"
   },
   {
@@ -52,7 +52,7 @@ const timeline = [
     description: "Scaling up. Managing complex data flows and secure financial systems. A chapter of responsibility, precision, and architectural growth.",
     image: "/images/story/rtf.png",
     tech: ["Next.js", "TypeScript", "Node.js", "PostgreSQL"],
-    achievements: ["Secure Auth System", "Real-time Dashboard"],
+    achievements: ["Secure Auth Implementation", "Real-time Dashboard"],
     color: "from-rose-500/20 to-transparent"
   },
   {
@@ -63,7 +63,7 @@ const timeline = [
     description: "Pushing boundaries. Working at the intersection of performance and aesthetics. Building digital products that inspire and convert.",
     image: "/images/story/oaky.png",
     tech: ["Next.js 14", "Framer Motion", "GSAP", "Tailwind"],
-    achievements: ["Awwwards Nominee", "High Performance Web Apps"],
+    achievements: ["Creative Developer", "Performance Focused"],
     color: "from-cyan-500/20 to-transparent"
   }
 ];
