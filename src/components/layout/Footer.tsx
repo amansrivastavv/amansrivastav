@@ -18,16 +18,7 @@ export const Footer = () => {
         <div className="flex flex-col justify-end pb-12">
              <div className="container mx-auto px-4 pt-32 relative">
                 {/* Massive Brand - Background Logo */}
-                <div className="absolute -top-32 left-0 w-full pointer-events-none opacity-[0.03] select-none overflow-hidden flex justify-center">
-                    <div className="relative w-[50vw] h-[50vw]">
-                       <Image 
-                         src="/logo-white.png" 
-                         alt="Background Logo" 
-                         fill
-                         className="object-contain"
-                       />
-                    </div>
-                </div>
+                {/* Massive Brand - Background Logo Removed */}
 
                 <div className="flex flex-col lg:flex-row justify-between gap-16 mb-24 relative z-20">
                 
