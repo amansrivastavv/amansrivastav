@@ -43,17 +43,39 @@ export default function RootLayout({
         "@type": "Person",
         "@id": "https://www.amansrivastav.com/#person",
         "name": "Aman Srivastav",
+        "alternateName": ["Aman Srivastava", "Aman Kumar Srivastav"],
         "url": "https://www.amansrivastav.com",
         "jobTitle": "Frontend Developer",
-        "image": "https://www.amansrivastav.com/Og_dark_theme.png", 
+        "image": "https://www.amansrivastav.com/Og_dark_theme.png",
+        "description": "Award-winning Frontend Developer & UI/UX Engineer specializing in high-performance React, Next.js, and immersive web experiences.",
+        "gender": "Male",
+        "email": "amansrivastav1203@gmail.com",
+        "nationality": "Indian",
+        "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "ITM GIDA",
+            "sameAs": "https://www.itmgida.ac.in/"
+        },
+        "knowsAbout": [
+            "Frontend Development",
+            "React.js",
+            "Next.js", 
+            "TypeScript",
+            "Tailwind CSS",
+            "GSAP Animations",
+            "Three.js",
+            "UI/UX Design"
+        ],
         "sameAs": [
           "https://www.linkedin.com/in/aman-kumar-srivastav-627ba1258",
           "https://github.com/amansrivastavv",
-          "https://x.com/amansrivastavv"
+          "https://x.com/amansrivastavv",
+          "https://www.instagram.com/amansrivastav"
         ],
         "worksFor": {
             "@type": "Organization",
-            "name": "Freelance"
+            "name": "Oaky Web",
+            "url": "https://www.oakyweb.com"
         },
         "address": {
             "@type": "PostalAddress",
