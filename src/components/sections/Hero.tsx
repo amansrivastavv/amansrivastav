@@ -3,187 +3,132 @@
 import React, { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { ArrowDownRight } from "lucide-react";
 
 export const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const title1Ref = useRef<HTMLDivElement>(null);
-  const title2Ref = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const { scrollY } = useScroll();
   
   const y = useTransform(scrollY, [0, 500], [0, 150]);
-  const scale = useTransform(scrollY, [0, 500], [1, 1.1]); // Slight zoom in on scroll
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-        // Initial loader state simulation
-        const tl = gsap.timeline();
+        const tl = gsap.timeline({ delay: 0.5 }); // Slight delay for preloader
 
-        // 1. Title Reveal (Split text effect)
-        tl.from(".char-reveal", {
-            y: 200,
+        // 1. Grid & Background Subtle Fade
+        tl.from(".hero-grid", {
             opacity: 0,
-            stagger: 0.05,
-            duration: 1.2,
-            ease: "power4.out",
-            delay: 0.5
+            duration: 2,
+            ease: "power2.out"
         })
-        // 2. Metadata Reveal
-        .from(".hero-detail", {
+        
+        // 2. Lines Expand from Center
+        .from(".hero-line", {
+            scaleX: 0,
             opacity: 0,
-            y: 20,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power3.out"
-        }, "-=0.5")
-        // 3. Button Reveal
-        .from(".hero-btn", {
+            transformOrigin: "center",
+            duration: 1.5,
+            ease: "expo.out",
+            stagger: 0.2
+        }, "-=1.5")
+
+        // 3. Name Reveal (Masked Rise Up)
+        .from(".hero-char", {
+            y: "100%",
+            rotateY: 10,
+            opacity: 0,
+            duration: 1.2,
+            stagger: 0.05,
+            ease: "power4.out"
+        }, "-=1")
+
+        // 4. Secondary Text & Metadata
+        .from(".hero-meta", {
             y: 20,
             opacity: 0,
-            duration: 0.8,
+            duration: 1,
             stagger: 0.1,
-            ease: "power3.out"
-        }, "-=0.5");
+            ease: "power2.out"
+        }, "-=0.8");
 
     }, containerRef);
     return () => ctx.revert();
   }, []);
 
-  // Split text helper
-  const splitText = (text: string) => {
-    return text.split("").map((char, i) => (
-      <span key={i} className="inline-block overflow-hidden">
-        <span className="char-reveal inline-block translate-y-0">
-            {char === " " ? "\u00A0" : char}
-        </span>
-      </span>
-    ));
-  };
+  // Simple Split Text Helper
+  const SplitText = ({ children, className }: { children: string, className?: string }) => (
+    <span className={`inline-block overflow-hidden ${className}`}>
+        {children.split("").map((char, i) => (
+            <span key={i} className="hero-char inline-block origin-bottom will-change-transform">
+                {char === " " ? "\u00A0" : char}
+            </span>
+        ))}
+    </span>
+  );
 
   return (
     <section 
       ref={containerRef}
       id="home" 
-      className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#030014]"
+      className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#020202]"
     >
-      {/* Cinematic Background Layer */}
-      <div className="absolute inset-0 z-0 select-none pointer-events-none">
-        {/* Placeholder for Video - Replace src with your high-quality architectural/abstract video */}
-        <div className="absolute inset-0 bg-black/40 z-10" /> {/* Overlay for text readability */}
-        
-        {/* Fallback Animated Gradient if no video */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900/50 via-[#030014] to-[#030014] z-0" />
-        
-        {/* Optional: Add <video> here
-        <video 
-            ref={videoRef}
-            autoPlay 
-            muted 
-            loop 
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-screen"
-        >
-            <source src="/path-to-your-cinematic-video.mp4" type="video/mp4" />
-        </video>
-        */}
-        
-        <div className="absolute top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-purple-500/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-cyan-500/10 rounded-full blur-[120px] animate-pulse delay-1000" />
-        
-        {/* Noise Texture */}
-        <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay" 
-             style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} 
-        />
-      </div>
-
-      {/* Metadata Detail Rails */}
-      <div className="absolute top-32 left-8 md:left-12 z-20 hidden md:flex flex-col gap-12 text-white/40 hero-detail mix-blend-difference">
-        <div className="space-y-1">
-          <p className="text-[10px] uppercase tracking-widest font-black text-white/60">Location</p>
-          <p className="text-xs font-serif italic text-white/40">Noida, Uttar Pradesh</p>
-        </div>
-        <div className="space-y-1">
-          <p className="text-[10px] uppercase tracking-widest font-black text-white/60">Status</p>
-          <p className="text-xs font-serif italic text-white/40">Available for projects</p>
-        </div>
-      </div>
-
-      <div className="absolute bottom-32 left-8 md:left-12 z-20 hidden md:flex flex-col gap-4 hero-detail mix-blend-difference">
-         <div className="w-px h-24 bg-white/20" />
-         <p className="text-[10px] uppercase tracking-[0.5em] font-black text-white/40 vertical-text origin-left -rotate-180">
-            SCROLL
-         </p>
-      </div>
-
-      <motion.div 
-        style={{ y, scale, opacity }}
-        className="relative z-10 container mx-auto px-6 text-center mix-blend-screen"
-      >
-        <div className="mb-8 overflow-hidden flex justify-center">
-          <p className="hero-detail text-cyan-400 uppercase tracking-[0.2em] text-xs font-bold inline-flex items-center gap-4">
-            <span className="w-2 h-2 bg-cyan-400 rounded-full animate-ping" />
-            Frontend Developer & Designer
-          </p>
-        </div>
-
-        <h1 className="text-6xl md:text-[10vw] leading-[0.9] md:leading-[0.8] font-serif font-black mb-12 select-none tracking-tighter text-white mix-blend-difference">
-          <div className="block overflow-hidden" ref={title1Ref}>
-            {splitText("AMAN")}
-          </div>
-          <div className="block overflow-hidden text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40" ref={title2Ref}>
-            <span className="italic font-light">{splitText("SRIVASTAV")}</span>
-          </div>
-        </h1>
-
-        <div className="hero-desc relative flex flex-col items-center">
-          <p className="hero-detail text-neutral-300 text-lg md:text-xl max-w-xl mx-auto font-sans font-light leading-relaxed mb-12 text-center mix-blend-difference">
-            Crafting <span className="text-white italic font-serif">digital experiences</span> that blur the line between utility and art.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              data-cursor="explore"
-              className="hero-btn px-10 py-4 rounded-full bg-white text-black font-black text-[12px] tracking-widest transition-all hover:bg-cyan-300 shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)]"
-            >
-              EXPLORE WORK
-            </motion.button>
-            <motion.button
-               whileHover={{ scale: 1.05 }}
-               whileTap={{ scale: 0.95 }}
-               data-cursor="hello"
-               className="hero-btn px-10 py-4 rounded-full border border-white/20 text-white font-black text-[12px] tracking-widest hover:border-white hover:bg-white/5 transition-all backdrop-blur-sm"
-            >
-              CONTACT ME
-            </motion.button>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Cinematic Frame Border - Thinner for more elegance */}
-      <div className="absolute inset-0 border-[10px] md:border-[20px] border-[#030014] z-50 pointer-events-none" />
+      {/* Structural Grid Background */}
+      <div className="hero-grid absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_100%)] pointer-events-none" />
       
-      {/* Decorative corners */}
-      <div className="absolute top-8 right-8 md:top-12 md:right-12 z-20 w-8 h-8 border-t border-r border-white/30 hero-detail" />
-      <div className="absolute bottom-8 right-8 md:bottom-12 md:right-12 z-20 w-8 h-8 border-b border-r border-white/30 hero-detail" />
+      {/* Subtle Noise */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 pointer-events-none" />
 
-      {/* Journey Indicator */}
+      {/* Main Content Layer */}
       <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-12 right-12 z-40 hidden md:flex flex-col items-end gap-2 hero-detail"
+        style={{ y, opacity }}
+        className="relative z-10 w-full max-w-[90vw] md:max-w-7xl px-4"
       >
-        <span className="text-[10px] font-mono text-white/40">SCROLL INDEX</span>
-        <div className="flex gap-1 h-1">
-            <div className="w-1 bg-white/60" />
-            <div className="w-8 bg-white/20 h-px self-center" />
+        <div className="relative">
+            {/* Top Decorative Line */}
+            <div className="hero-line w-full h-px bg-white/10 mb-8 md:mb-12" />
+            
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-8 md:mb-12">
+                <div className="overflow-hidden">
+                    <p className="hero-meta text-sm md:text-base font-mono text-cyan-500 uppercase tracking-widest mb-2 origin-left">
+                        Frontend Engineer
+                    </p>
+                    <h1 className="text-[12vw] md:text-[8vw] leading-[0.85] font-serif font-black text-white tracking-tighter mix-blend-difference flex">
+                        <SplitText>AMAN</SplitText>
+                    </h1>
+                </div>
+                
+                <div className="overflow-hidden text-right self-end pb-4 md:pb-0">
+                    <h1 className="text-[11vw] md:text-[8vw] leading-[0.85] font-serif font-black text-neutral-800 tracking-tighter flex justify-end">
+                        <SplitText className="text-neutral-800">SRIVASTAV</SplitText>
+                    </h1>
+                </div>
+            </div>
+
+            {/* Bottom Decorative Line */}
+            <div className="hero-line w-full h-px bg-white/10" />
+            
+            {/* Metadata Footer */}
+            <div className="flex flex-col md:flex-row justify-between items-start pt-6 md:pt-8 overflow-hidden gap-6 md:gap-0 relative z-20">
+                <div className="hero-meta max-w-xs">
+                    <p className="text-neutral-500 text-sm leading-relaxed">
+                        Crafting high-performance digital interfaces with a focus on motion, interaction, and architectural precision.
+                    </p>
+                </div>
+                
+                <a href="#projects" className="hero-meta group flex items-center gap-4 text-white hover:text-cyan-500 transition-colors cursor-pointer self-end md:self-auto">
+                    <span className="text-xs md:text-sm font-bold uppercase tracking-widest">Explore Work</span>
+                    <div className="w-10 h-10 md:w-12 md:h-12 border border-white/20 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-300">
+                        <ArrowDownRight className="w-5 h-5" />
+                    </div>
+                </a>
+            </div>
         </div>
       </motion.div>
+
+      {/* Cinematic Vignette */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,#020202_100%)] opacity-80" />
+
     </section>
   );
 };

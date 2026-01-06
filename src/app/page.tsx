@@ -8,7 +8,7 @@ import { Footer } from "@/components/layout/Footer";
 
 export default function Home() {
   return (
-    <main className="relative bg-[#030014] flex flex-col items-center overflow-hidden">
+    <main className="relative bg-[#020202] flex flex-col items-center overflow-hidden">
       <Navbar />
       <div className="w-full max-w-7xl">
         <Hero />
@@ -18,8 +18,8 @@ export default function Home() {
           <Skills />
           <Contact />
         </div>
-        <Footer />
       </div>
+      <Footer />
     </main>
   );
 }

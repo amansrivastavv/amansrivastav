@@ -66,7 +66,7 @@ export const Contact = () => {
   };
 
   return (
-    <section id="contact" className="relative py-32 md:py-48 bg-[#030014] overflow-hidden">
+    <section id="contact" className="relative py-20 md:py-24 bg-[#020202] overflow-hidden">
       
       {/* Particle Background - The "Cosmic Connection" */}
       <ParticleBackground />
@@ -111,10 +111,10 @@ export const Contact = () => {
 
             <a 
               href="mailto:amansrivastav1203@gmail.com"
-              className="group inline-flex items-center gap-4 text-2xl font-bold text-white hover:text-cyan-500 transition-colors"
+              className="group inline-flex items-center gap-4 text-lg md:text-2xl font-bold text-white hover:text-cyan-500 transition-colors break-all"
             >
               <span>amansrivastav1203@gmail.com</span>
-              <ArrowUpRight className="w-6 h-6 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+              <ArrowUpRight className="w-6 h-6 flex-shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </a>
           </div>
 
@@ -149,10 +149,10 @@ export const Contact = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  className="space-y-8 relative z-20"
+                  className="space-y-10 md:space-y-8 relative z-20"
                 >
                   <div className={cn(
-                     "group relative bg-zinc-900/40 backdrop-blur-md rounded-2xl p-8 border transition-all duration-300",
+                     "group relative bg-zinc-900/40 backdrop-blur-md rounded-2xl p-6 md:p-8 border transition-all duration-300",
                      focusedField === "name" ? "border-cyan-500/50 shadow-[0_0_30px_rgba(6,182,212,0.15)] scale-[1.02] z-30" : "border-white/5 hover:border-white/10 z-10"
                   )}>
                      <label className={cn(
@@ -164,13 +164,13 @@ export const Contact = () => {
                        required
                        onFocus={() => setFocusedField("name")}
                        onBlur={() => setFocusedField(null)}
-                       className="w-full bg-transparent text-2xl font-light text-white focus:outline-none placeholder:text-neutral-700/50 h-12"
+                       className="w-full bg-transparent text-xl md:text-2xl font-light text-white focus:outline-none placeholder:text-neutral-700/50 h-10 md:h-12"
                        placeholder=""
                      />
                   </div>
 
                   <div className={cn(
-                     "group relative bg-zinc-900/40 backdrop-blur-md rounded-2xl p-8 border transition-all duration-300",
+                     "group relative bg-zinc-900/40 backdrop-blur-md rounded-2xl p-6 md:p-8 border transition-all duration-300",
                      focusedField === "email" ? "border-cyan-500/50 shadow-[0_0_30px_rgba(6,182,212,0.15)] scale-[1.02] z-30" : "border-white/5 hover:border-white/10 z-10"
                   )}>
                      <label className={cn(
@@ -182,13 +182,13 @@ export const Contact = () => {
                        required
                        onFocus={() => setFocusedField("email")}
                        onBlur={() => setFocusedField(null)}
-                       className="w-full bg-transparent text-2xl font-light text-white focus:outline-none placeholder:text-neutral-700/50 h-12"
+                       className="w-full bg-transparent text-xl md:text-2xl font-light text-white focus:outline-none placeholder:text-neutral-700/50 h-10 md:h-12"
                        placeholder=""
                      />
                   </div>
 
                   <div className={cn(
-                     "group relative bg-zinc-900/40 backdrop-blur-md rounded-2xl p-8 border transition-all duration-300",
+                     "group relative bg-zinc-900/40 backdrop-blur-md rounded-2xl p-6 md:p-8 border transition-all duration-300",
                      focusedField === "message" ? "border-cyan-500/50 shadow-[0_0_30px_rgba(6,182,212,0.15)] scale-[1.02] z-30" : "border-white/5 hover:border-white/10 z-10"
                   )}>
                      <label className={cn(
@@ -200,12 +200,12 @@ export const Contact = () => {
                        required
                        onFocus={() => setFocusedField("message")}
                        onBlur={() => setFocusedField(null)}
-                       className="w-full bg-transparent text-2xl font-light text-white focus:outline-none placeholder:text-neutral-700/50 resize-none leading-relaxed"
+                       className="w-full bg-transparent text-xl md:text-2xl font-light text-white focus:outline-none placeholder:text-neutral-700/50 resize-none leading-relaxed"
                        placeholder="Tell me about your project..."
                      ></textarea>
                   </div>
 
-                  <div className="flex justify-end pt-4">
+                  <div className="flex justify-center md:justify-end pt-4">
                     <motion.button 
                       ref={buttonRef}
                       type="submit"
@@ -213,7 +213,7 @@ export const Contact = () => {
                       onMouseMove={handleMouseMove}
                       onMouseLeave={handleMouseLeave}
                       style={{ x: mouseX, y: mouseY }}
-                      className="relative flex items-center gap-4 px-10 py-5 bg-white text-black rounded-full font-black text-xs tracking-[0.3em] uppercase hover:bg-cyan-400 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] hover:shadow-[0_0_40px_-10px_rgba(34,211,238,0.8)] overflow-hidden"
+                      className="relative w-full md:w-auto flex items-center justify-center gap-4 px-10 py-5 bg-white text-black rounded-full font-black text-xs tracking-[0.3em] uppercase hover:bg-cyan-400 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] hover:shadow-[0_0_40px_-10px_rgba(34,211,238,0.8)] overflow-hidden"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
                       <span className="relative z-10 flex items-center gap-2">

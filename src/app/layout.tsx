@@ -6,6 +6,9 @@ import { Navbar } from "@/components/layout/Navbar";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 
 import { PremiumPreloader } from "@/components/ui/PremiumPreloader";
+import { CommandPalette } from "@/components/ui/CommandPalette";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -90,7 +93,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${playfair.variable} antialiased bg-[#030014] text-white overflow-x-hidden`}
+        className={`${inter.variable} ${playfair.variable} antialiased bg-[#020202] text-white overflow-x-hidden`}
       >
       
         <script
@@ -101,6 +104,7 @@ export default function RootLayout({
         />
 
         <PremiumPreloader />
+        <CommandPalette />
         <div className="noise-overlay" />
         <CustomCursor />
         
@@ -110,6 +114,9 @@ export default function RootLayout({
         <SmoothScroll>
           {children}
         </SmoothScroll>
+
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

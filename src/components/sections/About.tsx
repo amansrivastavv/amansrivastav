@@ -12,7 +12,7 @@ export const About = () => {
   });
 
   return (
-    <section id="about" ref={containerRef} className="relative bg-[#030014] text-white py-32 md:py-64 overflow-hidden">
+    <section id="about" ref={containerRef} className="relative bg-[#020202] text-white py-32 md:py-64 overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-24 items-start">
           

@@ -106,7 +106,7 @@ export const Navbar = () => {
             animate={{ y: "0%" }}
             exit={{ y: "-100%" }}
             transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 bg-[#050505] z-[90] flex flex-col justify-between pt-32 pb-12 px-6 md:px-24"
+            className="fixed inset-0 bg-[#050505] z-[90] flex flex-col justify-between pt-48 pb-12 px-6 md:px-24"
           >
             {/* Background Texture */}
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 pointer-events-none" />
@@ -114,7 +114,7 @@ export const Navbar = () => {
             <div className="container mx-auto h-full flex flex-col md:flex-row justify-between relative z-10">
                
                {/* Left: Navigation Links */}
-               <div className="flex flex-col justify-center space-y-2 md:space-y-4">
+               <div className="flex flex-col justify-center space-y-2 md:space-y-4 mt-24 md:mt-0">
                   {navLinks.map((link, i) => (
                     <motion.div
                       key={link.name}
