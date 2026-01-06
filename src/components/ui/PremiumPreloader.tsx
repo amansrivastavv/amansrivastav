@@ -8,20 +8,28 @@ export const PremiumPreloader = () => {
   const [complete, setComplete] = useState(false);
 
   useEffect(() => {
-    // Check session storage
-    // const hasLoaded = sessionStorage.getItem("hasLoaded");
-    const hasLoaded = false; // FORCE SHOW FOR VERIFY
-    // const hasLoaded = sessionStorage.getItem("hasLoaded");
+    // Safety check for session storage (can throw in some environments)
+    let hasLoaded = false;
+    try {
+      hasLoaded = sessionStorage.getItem("hasLoaded") === "true";
+    } catch (e) {
+      console.warn("Session storage restricted", e);
+    }
 
     if (hasLoaded) {
       setComplete(true);
       return;
     }
 
+    // Failsafe: Force remove loader after 4 seconds max
+    const safetyTimer = setTimeout(() => {
+        setComplete(true);
+    }, 4000);
+
     // Counter Logic
     let current = 0;
     const interval = setInterval(() => {
-      const increment = Math.ceil(Math.random() * 5); 
+      const increment = Math.ceil(Math.random() * 10) + 5; // Much faster updates
       current = Math.min(current + increment, 100);
       setPercent(current);
 
@@ -29,12 +37,17 @@ export const PremiumPreloader = () => {
         clearInterval(interval);
         setTimeout(() => {
             setComplete(true);
-            sessionStorage.setItem("hasLoaded", "true");
-        }, 800);
+            try {
+              sessionStorage.setItem("hasLoaded", "true");
+            } catch (e) { /* ignore */ }
+        }, 200); // Quicker exit after 100%
       }
-    }, 50); // Faster updates as requested
+    }, 20); // Faster interval
 
-    return () => clearInterval(interval);
+    return () => {
+        clearInterval(interval);
+        clearTimeout(safetyTimer);
+    };
   }, []);
 
   return (
@@ -43,7 +56,7 @@ export const PremiumPreloader = () => {
         <motion.div
           key="preloader"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 1.5, ease: [0.76, 0, 0.24, 1] } }} // Slower, elegant fade out
+          exit={{ opacity: 0, transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }} // Faster fade out
           className="fixed inset-0 z-[999999] bg-[#0c0c0c] flex items-center justify-center overflow-hidden"
         >
             {/* Noise Texture */}

@@ -8,34 +8,45 @@ export const siteMetadata: Metadata = {
 
 
   description:
-    "Aman Srivastav: Creative Frontend Developer specializing in React, Next.js, and pixel-perfect UI design. Building high-performance web solutions.",
-
+    "Aman Srivastav: Award-winning Frontend Developer & UI/UX Engineer. Specializing in high-performance React, Next.js, and immersive web experiences. Based in India, available globally.",
+  
   // BASE URL: Important for images to work
   metadataBase: new URL("https://www.amansrivastav.com"),
 
 
   keywords: [
-    // Branding
+    // Branding & Personal Identity
     "Aman Srivastav",
+    "Aman Srivastava", // Common misspelling
+    "Aman Kumar Srivastav",
     "Aman Srivastav Portfolio",
+    "Aman Srivastav Developer",
     
-    // Core Skills
+    // Core Competencies
     "Frontend Developer",
-    "Creative Web Developer",
     "React Developer",
-    "Next.js Developer",
-    "Web Designer",
+    "Next.js Expert",
+    "Creative Web Developer",
     "UI/UX Engineer",
+    "Javascript Developer",
+    "Typescript Developer",
+    "Web Performance Optimization",
     
+    // Location Based (India & Global)
     "Frontend Developer India",
-    "Frontend Developer Noida",
-    "Frontend Developer Delhi NCR",
-    "Frontend Developer Gorakhpur", 
-    "Web Developer Uttar Pradesh",
+    "Best Frontend Developer in Noida",
+    "React Developer Delhi NCR",
+    "Web Developer Gorakhpur", 
+    "Top Web Developer India",
     
-
-    "Pixel Perfect Design",
-    "Creative Portfolio",
+    // Niche & Style
+    "Award Winning Portfolio",
+    "Awwwards Style Website",
+    "Premium Web Design",
+    "Interactive Websites",
+    "Three.js Developer",
+    "GSAP Animations",
+    "Framer Motion Expert",
     "Freelance React Developer"
   ],
 
@@ -54,7 +65,7 @@ export const siteMetadata: Metadata = {
     url: "https://www.amansrivastav.com",
     title: "Aman Srivastav | Creative Frontend Developer & Designer",
     description:
-      "Aman Srivastav: Creative Frontend Developer specializing in React, Next.js, and pixel-perfect UI design. Building high-performance web solutions.",
+      "Aman Srivastav: Award-winning Frontend Developer & UI/UX Engineer. Specializing in high-performance React, Next.js, and immersive web experiences. Based in India, available globally.",
     siteName: "Aman Srivastav Portfolio",
     images: [
       {
