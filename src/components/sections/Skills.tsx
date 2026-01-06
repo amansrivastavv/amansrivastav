@@ -93,6 +93,20 @@ export const Skills = () => {
 
     // Mouse Control
     const mouse = Mouse.create(render.canvas);
+    
+    // Fix: Allow scrolling on mobile by completely disabling mouse constraint on touch devices
+    // or by not preventing default events.
+    mouse.element.removeEventListener("mousewheel", mouse.mousewheel as any);
+    mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel as any);
+
+    // Important: Allow touch scrolling to pass through
+    // @ts-ignore
+    mouse.element.removeEventListener('touchstart', mouse.mousedown);
+    // @ts-ignore
+    mouse.element.removeEventListener('touchmove', mouse.mousemove);
+    // @ts-ignore
+    mouse.element.removeEventListener('touchend', mouse.mouseup);
+
     const mouseConstraint = MouseConstraint.create(engine, {
       mouse: mouse,
       constraint: {
@@ -101,6 +115,10 @@ export const Skills = () => {
       },
     });
 
+    // Re-add touch events only if we want INTERACTION, but we must not call preventDefault
+    // ideally for this specific "stuck" issue, we might just want to disable interaction on mobile
+    // or set a flag. A simpler CSS fix is often better: pointer-events-none on mobile.
+    
     Composite.add(world, mouseConstraint);
     render.mouse = mouse;
 
@@ -159,7 +177,7 @@ export const Skills = () => {
     <section id="skills" className="pt-48 pb-32 bg-[#020202] text-white relative overflow-hidden min-h-[80vh] border-t border-white/5">
       <div className="container mx-auto px-6 mb-16 flex flex-col md:flex-row items-end gap-6">
           <h2 className="text-[10vw] md:text-8xl font-serif font-black text-white leading-[0.8]">
-            The Toolkit
+            Digital <br /> <span className="text-neutral-500 italic">Arsenal.</span>
           </h2>
           <div className="mb-4 flex items-center gap-4">
               <div className="h-px w-12 bg-cyan-500" />
@@ -171,9 +189,12 @@ export const Skills = () => {
 
       <div 
         ref={containerRef} 
-        className="w-full h-[60vh] relative cursor-crosshair border-y border-white/5 bg-neutral-900/20 touch-pan-y"
+        className="w-full h-[60vh] relative border-y border-white/5 bg-neutral-900/20"
       >
-          <canvas ref={canvasRef} className="block w-full h-full" />
+          <canvas 
+            ref={canvasRef} 
+            className="block w-full h-full pointer-events-none md:pointer-events-auto cursor-grab active:cursor-grabbing" 
+          />
       </div>
     </section>
   );
