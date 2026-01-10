@@ -96,8 +96,8 @@ export const Skills = () => {
     
     // Fix: Allow scrolling on mobile by completely disabling mouse constraint on touch devices
     // or by not preventing default events.
-    mouse.element.removeEventListener("mousewheel", mouse.mousewheel as any);
-    mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel as any);
+    mouse.element.removeEventListener("mousewheel", (mouse as any).mousewheel);
+    mouse.element.removeEventListener("DOMMouseScroll", (mouse as any).mousewheel);
 
     // Important: Allow touch scrolling to pass through
     // @ts-ignore
