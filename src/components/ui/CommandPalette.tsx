@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, ArrowRight, Command, CornerDownLeft, Copy, FileText, Github } from "lucide-react";
+import { Search, ArrowRight, CornerDownLeft, Copy, FileText, Github } from "lucide-react";
 
 type CommandItem = {
   id: string;
@@ -16,7 +16,7 @@ type CommandItem = {
 export const CommandPalette = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [miscSelected, setMiscSelected] = useState(0); // For keyboard navigation if needed, simpler to just filter for now
+
   const router = useRouter();
 
   useEffect(() => {

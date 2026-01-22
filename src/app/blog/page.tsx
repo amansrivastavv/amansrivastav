@@ -2,7 +2,6 @@
 
 import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -14,14 +13,13 @@ export default function BlogPage() {
 
   return (
     <main className="bg-[#020202] relative min-h-screen selection:bg-cyan-500/30">
-      <Navbar />
       
       {/* Cinematic Hero */}
       <motion.header 
         style={{ y }}
         className="h-screen flex flex-col items-center justify-center relative overflow-hidden"
       >
-         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/5 via-[#020202] to-[#020202] opacity-50" />
+         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-white/5 via-[#020202] to-[#020202] opacity-50" />
          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5" />
 
          <div className="relative z-10 text-center space-y-8 px-4">

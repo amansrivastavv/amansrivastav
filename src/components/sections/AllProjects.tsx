@@ -1,159 +1,212 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { motion, useScroll, useTransform, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { allProjects } from "@/lib/data";
 
+const ProjectImage = ({ src, alt }: { src: string, alt: string }) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    // Smooth spring animation for the tilt
+    const mouseX = useSpring(x, { stiffness: 150, damping: 15 });
+    const mouseY = useSpring(y, { stiffness: 150, damping: 15 });
+
+    const rotateX = useTransform(mouseY, [-0.5, 0.5], ["15deg", "-15deg"]);
+    const rotateY = useTransform(mouseX, [-0.5, 0.5], ["-15deg", "15deg"]);
+    
+    // Dynamic glare gradient moving with mouse
+    const glareX = useTransform(mouseX, [-0.5, 0.5], ["0%", "100%"]);
+    const glareY = useTransform(mouseY, [-0.5, 0.5], ["0%", "100%"]);
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!ref.current) return;
+        const rect = ref.current.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const mouseXVal = e.clientX - rect.left;
+        const mouseYVal = e.clientY - rect.top;
+        const xPct = mouseXVal / width - 0.5;
+        const yPct = mouseYVal / height - 0.5;
+        x.set(xPct);
+        y.set(yPct);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
+    return (
+        <motion.div
+            ref={ref}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{
+                rotateX,
+                rotateY,
+                transformStyle: "preserve-3d",
+            }}
+            className="relative w-full aspect-4/3 md:aspect-16/10 rounded-xl bg-[#0a0a0a] overflow-hidden perspective-1000 cursor-none"
+        >
+            {/* The Image Layer */}
+            <motion.div 
+                style={{ 
+                    scale: 1.15, // Scale up to avoid edge clipping during tilt
+                    z: 0
+                }}
+                className="absolute inset-0"
+            >
+                 <Image 
+                    src={src}
+                    alt={alt}
+                    fill
+                    className="object-cover"
+                 />
+                 <div className="absolute inset-0 bg-black/10" />
+            </motion.div>
+
+            {/* Glare/Reflection Layer */}
+            <motion.div 
+                style={{
+                    opacity: useTransform(mouseX, [-0.5, 0.5], [0, 0.5]),
+                    background: useMotionTemplate`radial-gradient(circle at ${glareX} ${glareY}, rgba(255,255,255,0.4) 0%, transparent 80%)`,
+                    z: 50
+                }}
+                className="absolute inset-0 pointer-events-none mix-blend-overlay"
+            />
+            
+            {/* Border Glow */}
+             <motion.div
+                style={{
+                    opacity: useTransform(mouseX, [-0.5, 0.5], [0.3, 0.8]),
+                    background: useMotionTemplate`radial-gradient(800px circle at ${glareX} ${glareY}, rgba(255,255,255,0.15), transparent 40%)`,
+                    z: 60
+                }}
+                className="absolute inset-0 pointer-events-none"
+            />
+
+        </motion.div>
+    );
+};
+
 const ProjectCard = ({ project, index }: { project: typeof allProjects[0], index: number }) => {
-    const cardRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
-        target: cardRef,
+        target: containerRef,
         offset: ["start end", "end start"]
     });
 
-    const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
-    const opacity = useTransform(scrollYProgress, [0, 0.2, 0.9, 1], [0, 1, 1, 0]);
-    const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
+    const isEven = index % 2 === 0;
+    
+    // Text Reveal
+    const textY = useTransform(scrollYProgress, [0.1, 0.4], [50, 0]);
+    const textOpacity = useTransform(scrollYProgress, [0.1, 0.4], [0, 1]);
 
     return (
-        <motion.div 
-            ref={cardRef}
-            style={{ opacity, scale }}
-            className="relative min-h-[90vh] flex items-center justify-center py-24 md:py-32 group"
-        >
-            <div className="w-full max-w-7xl mx-auto px-6 relative z-10">
-                <div className="grid grid-cols-1 gap-12 md:gap-24 items-center">
+        <section ref={containerRef} className="min-h-screen flex items-center py-24 md:py-0">
+            <div className="container mx-auto px-6 md:px-12">
+                <div className={`flex flex-col md:flex-row gap-12 md:gap-24 items-center ${isEven ? "" : "md:flex-row-reverse"}`}>
                     
-                    {/* Project Header (Title & Tags) */}
-                    <div className="space-y-8 relative z-20">
-                         <div className="flex items-center gap-6 overflow-hidden">
-                              <span className="font-mono text-cyan-500 text-xs md:text-sm tracking-[0.2em]">0{index + 1}</span>
-                              <div className="h-[1px] w-24 bg-gradient-to-r from-cyan-500/50 to-transparent" />
-                              <span className="font-mono text-white/40 text-xs uppercase tracking-widest">{project.role}</span>
+                    {/* TEXT SECTION */}
+                    <motion.div 
+                        style={{ y: textY, opacity: textOpacity }}
+                        className="w-full md:w-5/12 space-y-8 md:space-y-12 z-10"
+                    >
+                         {/* Meta */}
+                         <div className="flex items-center gap-4 overflow-hidden">
+                              <span className="font-mono text-cyan-500 text-sm md:text-base">0{index + 1}</span>
+                              <div className="h-px w-12 bg-white/20" />
+                              <span className="font-mono text-white/50 text-sm uppercase tracking-widest">{project.role}</span>
                          </div>
-                         
-                         <h2 className="text-5xl md:text-8xl lg:text-9xl font-serif font-black text-white leading-[0.85] tracking-tight mix-blend-exclusion">
+
+                         {/* Title */}
+                         <h2 className="text-6xl md:text-8xl lg:text-9xl font-black text-white leading-[0.85] tracking-tighter">
                             {project.title}
+                            <span className="text-cyan-500">.</span>
                          </h2>
 
-                         <div className="flex flex-wrap gap-2 max-w-xl">
+                         {/* Description */}
+                         <p className="text-neutral-400 text-lg md:text-xl font-light leading-relaxed max-w-md">
+                            {project.description}
+                         </p>
+
+                         {/* Tags */}
+                         <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-mono text-white/40 uppercase tracking-wider">
                             {project.tags.map(tag => (
-                                <span key={tag} className="px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm text-xs md:text-sm text-neutral-300 font-medium">
-                                    {tag}
-                                </span>
+                                <span key={tag}>#{tag}</span>
                             ))}
                          </div>
-                    </div>
 
-                    {/* Parallax Image Container */}
-                    <div className="relative aspect-[4/3] md:aspect-[16/9] w-full overflow-hidden rounded-lg md:rounded-2xl bg-[#0a0a0a]">
-                         {/* Image with Parallax */}
-                         <motion.div style={{ y }} className="absolute inset-0 h-[120%] -top-[10%]">
-                             <Image 
-                                src={project.image}
-                                alt={project.title}
-                                fill
-                                className="object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-700"
-                             />
-                         </motion.div>
-                         
-                         {/* Grading Overlays */}
-                         <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-transparent to-transparent opacity-80" />
-                         <div className="absolute inset-0 bg-gradient-to-b from-[#020202]/50 via-transparent to-transparent opacity-60" />
+                         {/* Link */}
+                         <div className="pt-4">
+                            <Link 
+                                href={project.link}
+                                target="_blank"
+                                className="inline-flex items-center gap-3 text-white border-b border-white/30 pb-1 hover:border-cyan-500 hover:text-cyan-500 transition-all duration-300 group"
+                            >
+                                <span className="text-lg font-medium">View Project</span>
+                                <ArrowUpRight className="w-5 h-5 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+                            </Link>
+                         </div>
+                    </motion.div>
 
-                         {/* Floating Description Card */}
-                         <motion.div 
-                            initial={{ y: 20, opacity: 0 }}
-                            whileInView={{ y: 0, opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.3 }}
-                            className="absolute bottom-6 left-6 right-6 md:bottom-12 md:left-12 md:w-full md:max-w-md p-6 md:p-8 bg-black/60 backdrop-blur-xl border border-white/10 rounded-xl md:rounded-2xl z-20"
-                         >
-                            <p className="text-neutral-300 font-light leading-relaxed text-sm md:text-base mb-8">
-                                {project.description}
-                            </p>
-                            
-                            <div className="flex items-center justify-between">
-                                <span className="font-mono text-[10px] text-white/30">{project.year}</span>
-                                <Link 
-                                    href={project.link}
-                                    className="group/btn flex items-center gap-3 text-white text-xs font-bold uppercase tracking-widest hover:text-cyan-400 transition-colors"
-                                >
-                                    View Project
-                                    <span className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover/btn:border-cyan-500 group-hover/btn:bg-cyan-500/10 transition-all">
-                                        <ArrowUpRight className="w-3 h-3 transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
-                                    </span>
-                                </Link>
-                            </div>
-                         </motion.div>
+                    {/* IMAGE SECTION */}
+                    <div className="w-full md:w-7/12">
+                         <ProjectImage src={project.image} alt={project.title} />
                     </div>
 
                 </div>
             </div>
-            
-            {/* Background number watermark */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none select-none opacity-[0.02]">
-                <span className="text-[20vw] font-black">{index + 1}</span>
-            </div>
-        </motion.div>
-    )
+        </section>
+    );
 }
 
 export const AllProjects = () => {
     return (
-        <section className="relative bg-[#020202] text-white min-h-screen pb-32">
-            {/* Header */}
-            <div className="fixed top-0 left-0 w-full h-24 z-40 bg-gradient-to-b from-[#020202] to-transparent pointer-events-none" />
+        <div className="bg-[#020202] text-white overflow-hidden">
             
-            <div className="pt-32 pb-12 md:pt-48 md:pb-32 px-6 container mx-auto mb-12 border-b border-white/5">
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                    <div>
-                         <motion.div 
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="flex items-center gap-3 mb-6"
-                        >
-                            <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
-                            <span className="font-mono text-xs text-cyan-500 uppercase tracking-widest">Selected Works</span>
-                         </motion.div>
-                         <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-medium leading-[0.9]">
-                            Visual <br /> <span className="text-neutral-500 italic">Playground.</span>
-                         </h1>
-                    </div>
-                    <div className="max-w-sm text-neutral-400 text-sm md:text-base font-light leading-relaxed">
-                        <p>
-                            A curated selection of web experiences, heavy on interaction, motion, and obsession with detail. 
-                            Designed to leave a mark.
-                        </p>
-                    </div>
-                </div>
-            </div>
+            {/* Header Section */}
+            <section className="min-h-[60vh] flex flex-col justify-end pb-24 container mx-auto px-6 md:px-12">
+                <motion.div 
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <span className="block font-mono text-cyan-500 text-sm uppercase tracking-[0.2em] mb-6">
+                        Selected Works (2023-2024)
+                    </span>
+                    <h1 className="text-[12vw] leading-[0.8] font-black tracking-tighter text-white">
+                        DIGITAL <br />
+                        <span className="text-white/20">REALITY.</span>
+                    </h1>
+                </motion.div>
+            </section>
 
-            <div className="relative">
-                {/* Vertical Line */}
-                <div className="hidden md:block absolute left-12 top-0 bottom-0 w-[1px] bg-white/5" />
-                
+            {/* Projects Loop */}
+            <div className="pb-32">
                 {allProjects.map((project, i) => (
                     <ProjectCard key={i} project={project} index={i} />
                 ))}
             </div>
 
-            {/* Bottom Contact CTA */}
-            <div className="container mx-auto px-6 py-32 text-center border-t border-white/5">
-                <h3 className="text-2xl md:text-4xl font-serif mb-8">Seen enough?</h3>
-                <Link 
-                    href="/contact"
-                    className="inline-flex items-center gap-4 px-8 py-4 rounded-full bg-white text-black font-bold uppercase tracking-widest hover:bg-cyan-500 hover:text-white transition-colors duration-300"
-                >
-                    Start a Project
-                    <ArrowRight className="w-4 h-4" />
-                </Link>
-            </div>
+             {/* Minimal Footer CTA */}
+             <section className="py-32 border-t border-white/5">
+                <div className="container mx-auto px-6 flex flex-col items-center text-center">
+                    <p className="text-neutral-500 font-mono uppercase tracking-widest mb-8">Got an idea?</p>
+                    <Link 
+                        href="/contact"
+                        className="text-6xl md:text-8xl font-black text-white hover:text-cyan-500 transition-colors tracking-tighter"
+                    >
+                        START A PROJECT
+                    </Link>
+                </div>
+            </section>
 
-        </section>
+        </div>
     );
 };

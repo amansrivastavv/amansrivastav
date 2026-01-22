@@ -7,8 +7,8 @@ import { CustomCursor } from "@/components/ui/CustomCursor";
 
 import { PremiumPreloader } from "@/components/ui/PremiumPreloader";
 import { CommandPalette } from "@/components/ui/CommandPalette";
+import { Noise } from "@/components/ui/Noise";
 import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -105,7 +105,7 @@ export default function RootLayout({
 
         <PremiumPreloader />
         <CommandPalette />
-        <div className="noise-overlay" />
+        <Noise />
         <CustomCursor />
         
        
@@ -116,7 +116,7 @@ export default function RootLayout({
         </SmoothScroll>
 
         <Analytics />
-        <SpeedInsights />
+
       </body>
     </html>
   );

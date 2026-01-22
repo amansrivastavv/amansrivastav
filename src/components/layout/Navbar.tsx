@@ -23,12 +23,7 @@ const socialLinks = [
   { name: "Instagram", href: "https://instagram.com/amansrivastav", icon: <Instagram className="w-5 h-5" /> },
 ];
 
-// --- Components ---
 
-/** 
- * Magnetic Effect Component
- * Pulls the element towards the cursor on hover
- */
 const Magnetic = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef<HTMLDivElement>(null);
   const position = { x: useMotionValue(0), y: useMotionValue(0) };
@@ -79,15 +74,7 @@ export const Navbar = () => {
     document.body.style.overflow = isOpen ? "hidden" : "unset";
   }, [isOpen]);
 
-  // Hamburger Animation Variants
-  const lineVariants = {
-    closed: { rotate: 0, y: 0, opacity: 1 },
-    opened: (custom: number) => ({
-      rotate: custom === 1 ? 45 : -45,
-      y: custom === 1 ? 6 : -6,
-      opacity: custom === 2 ? 0 : 1, // Hide middle line
-    }),
-  };
+
 
   return (
     <>
@@ -97,15 +84,15 @@ export const Navbar = () => {
         transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
         className={cn(
           "fixed top-0 inset-x-0 z-[100] transition-all duration-500 ease-in-out font-sans",
-          scrolled || isOpen ? "py-4 bg-black/50 backdrop-blur-xl border-b border-white/5" : "py-8 bg-transparent"
+          scrolled || isOpen ? "py-4 bg-black/50 backdrop-blur-xl border-b border-white/5" : "py-6 bg-transparent"
         )}
       >
-        <div className="w-full max-w-[95vw] md:max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
           
           {/* LOGO */}
           <Link 
             href="/" 
-            className="relative z-[101] group flex items-center gap-2"
+            className="relative z-101 group flex items-center gap-2"
             onClick={() => setIsOpen(false)}
           >
             <div className="flex flex-col">
@@ -119,7 +106,7 @@ export const Navbar = () => {
           </Link>
 
           {/* RIGHT ACTIONS */}
-          <div className="flex items-center gap-6 relative z-[101]">
+          <div className="flex items-center gap-6 relative z-101">
             <Magnetic>
               <a
                 href="/aman-resume.pdf"
@@ -179,27 +166,37 @@ export const Navbar = () => {
               {/* NAVIGATION LINKS */}
               <div className="flex flex-col gap-4 md:gap-6">
                 <p className="text-xs text-neutral-500 font-bold uppercase tracking-widest mb-8 ml-1">Navigation</p>
-                {navLinks.map((link, i) => (
-                  <motion.div
-                    key={link.name}
-                    initial={{ opacity: 0, x: -50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 + i * 0.1, duration: 0.5 }}
-                  >
-                    <Link
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className="group flex items-center gap-6"
+                {navLinks.map((link, i) => {
+                  const isActive = link.href === "/" ? pathname === "/" : pathname?.startsWith(link.href);
+                  
+                  return (
+                    <motion.div
+                      key={link.name}
+                      initial={{ opacity: 0, x: -50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 + i * 0.1, duration: 0.5 }}
                     >
-                      <span className="text-base text-neutral-500 font-mono group-hover:text-cyan-500 transition-colors">
-                        0{i + 1}
-                      </span>
-                      <span className="text-5xl md:text-7xl lg:text-8xl font-black text-white/40 group-hover:text-white transition-all duration-300 md:group-hover:translate-x-4">
-                        {link.name}
-                      </span>
-                    </Link>
-                  </motion.div>
-                ))}
+                      <Link
+                        href={link.href}
+                        onClick={() => setIsOpen(false)}
+                        className="group flex items-center gap-6"
+                      >
+                        <span className={cn(
+                          "text-base font-mono transition-colors",
+                          isActive ? "text-cyan-500" : "text-neutral-500 group-hover:text-cyan-500"
+                        )}>
+                          0{i + 1}
+                        </span>
+                        <span className={cn(
+                          "text-5xl md:text-7xl lg:text-8xl font-black transition-all duration-300 md:group-hover:translate-x-4",
+                          isActive ? "text-white" : "text-white/40 group-hover:text-white"
+                        )}>
+                          {link.name}
+                        </span>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
               </div>
 
               {/* CONTACT & SOCIALS */}

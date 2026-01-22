@@ -2,10 +2,9 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Navbar } from "@/components/layout/Navbar";
+
 import { Footer } from "@/components/layout/Footer";
 import { ArrowDown } from "lucide-react";
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 // Extended Timeline Data
@@ -174,7 +173,7 @@ export default function StoryPage() {
 
   return (
     <main className="bg-[#020202] relative min-h-screen selection:bg-cyan-500/30">
-      <Navbar />
+
       
       {/* Cinematic Hero */}
       <motion.header 
@@ -232,7 +231,7 @@ export default function StoryPage() {
                className="space-y-8"
              >
                 <p className="text-sm font-bold uppercase tracking-[0.4em] text-neutral-600">
-                  What's Next?
+                  What&apos;s Next?
                 </p>
                 <h2 className="text-5xl md:text-8xl font-serif font-black text-white mix-blend-difference tracking-tight">
                   <span className="block text-neutral-800">The Story</span>

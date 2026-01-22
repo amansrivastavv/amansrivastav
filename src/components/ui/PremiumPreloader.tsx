@@ -12,12 +12,12 @@ export const PremiumPreloader = () => {
     let hasLoaded = false;
     try {
       hasLoaded = sessionStorage.getItem("hasLoaded") === "true";
-    } catch (e) {
-      console.warn("Session storage restricted", e);
+    } catch {
+      console.warn("Session storage restricted");
     }
 
     if (hasLoaded) {
-      setComplete(true);
+      setTimeout(() => setComplete(true), 0);
       return;
     }
 
@@ -39,7 +39,7 @@ export const PremiumPreloader = () => {
             setComplete(true);
             try {
               sessionStorage.setItem("hasLoaded", "true");
-            } catch (e) { /* ignore */ }
+            } catch { /* ignore */ }
         }, 200); // Quicker exit after 100%
       }
     }, 20); // Faster interval
@@ -57,7 +57,7 @@ export const PremiumPreloader = () => {
           key="preloader"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }} // Faster fade out
-          className="fixed inset-0 z-[999999] bg-[#0c0c0c] flex items-center justify-center overflow-hidden"
+          className="fixed inset-0 z-999999 bg-[#0c0c0c] flex items-center justify-center overflow-hidden"
         >
             {/* Noise Texture */}
             <div className="absolute inset-0 opacity-[0.06] pointer-events-none mix-blend-overlay" 

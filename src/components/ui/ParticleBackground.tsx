@@ -11,74 +11,66 @@ export const ParticleBackground = () => {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    type Particle = { x: number; y: number; update: () => void; draw: () => void; };
     let particles: Particle[] = [];
     let animationFrameId: number;
-    let width = window.innerWidth;
-    let height = window.innerHeight;
+    let w = window.innerWidth;
+    let h = window.innerHeight;
 
     const mouse = { x: -1000, y: -1000 };
 
-    class Particle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-      color: string;
-
-      constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.size = Math.random() * 2;
-        this.color = `rgba(6, 182, 212, ${Math.random() * 0.5})`; // Cyan-ish
-      }
-
-      update() {
-        // Move
-        this.x += this.vx;
-        this.y += this.vy;
-
-        // Bounce off walls
-        if (this.x < 0 || this.x > width) this.vx *= -1;
-        if (this.y < 0 || this.y > height) this.vy *= -1;
-
-        // Mouse attraction (Gravity Well)
-        const dx = mouse.x - this.x;
-        const dy = mouse.y - this.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+    const createParticle = () => {  
+      const p = {
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        size: Math.random() * 2,
+        color: `rgba(6, 182, 212, ${Math.random() * 0.5})`, // Cyan-ish
         
-        if (distance < 200) {
-           this.x += dx * 0.01;
-           this.y += dy * 0.01;
-        }
-      }
+        update: () => {
+          p.x += p.vx;
+          p.y += p.vy;
 
-      draw() {
-        if (!ctx) return;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-      }
-    }
+          if (p.x < 0 || p.x > w) p.vx *= -1;
+          if (p.y < 0 || p.y > h) p.vy *= -1;
+
+          const dx = mouse.x - p.x;
+          const dy = mouse.y - p.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          
+          if (distance < 200) {
+            p.x += dx * 0.01;
+            p.y += dy * 0.01;
+          }
+        },
+
+        draw: () => {
+          if (!ctx) return;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+        }
+      };
+      return p;
+    };
 
     const init = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w;
+      canvas.height = h;
       particles = [];
-      const numberOfParticles = Math.min((width * height) / 15000, 100); // Responsive density
+      const numberOfParticles = Math.min((w * h) / 15000, 100); // Responsive density
       for (let i = 0; i < numberOfParticles; i++) {
-        particles.push(new Particle());
+        particles.push(createParticle());
       }
     };
 
     const animate = () => {
       if (!ctx) return;
-      ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(0, 0, w, h);
       
       particles.forEach(p => {
         p.update();

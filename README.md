@@ -1,8 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aman Srivastav's Portfolio
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-0055FF?style=for-the-badge&logo=framer&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 
-First, run the development server:
+> A high-performance, immersive portfolio website built with modern web technologies, focusing on motion, interaction, and architectural precision.
+
+---
+
+## 🚀 Key Features
+
+- **Cinematic Preloader**: A premium, noise-overlayed entrance animation.
+- **Immersive Hero Section**: GSAP-powered text reveals and structural grid backgrounds.
+- **Magnetic Navigation**: Interactive cursor effects and fluid navigation menus.
+- **Dynamic Projects**: Scroll-triggered project reveals with detailed metadata.
+- **Smooth Scrolling**: Lenis-powered inertial scrolling for a native app feel.
+- **Responsive Design**: Fully optimized for all device sizes with a mobile-first approach.
+
+---
+
+## 🛠 Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Animation**:
+  - [Framer Motion](https://www.framer.com/motion/) (Declarative animations)
+  - [GSAP](https://greensock.com/gsap/) (Complex timelines)
+- **Typography**: Inter (Sans) & Playfair Display (Serif) via `next/font`
+- **Icons**: [Lucide React](https://lucide.dev/)
+
+---
+
+## ⚡ Getting Started
+
+First, install the dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -10,27 +52,45 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📂 Project Structure
 
-## Learn More
+```
+src/
+├── app/              # Next.js App Router pages & layouts
+│   ├── layout.tsx    # Root layout with global providers
+│   ├── page.tsx      # Homepage composition
+│   └── globals.css   # Global styles & Tailwind directives
+├── components/       # React components
+│   ├── layout/       # Structural components (Navbar, Footer)
+│   ├── sections/     # Page sections (Hero, About, Projects)
+│   └── ui/           # Reusable UI elements (Buttons, Cursor)
+└── lib/              # Utilities & configurations
+    ├── utils.ts      # Helper functions (cn, etc.)
+    └── data.ts       # Static content data
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎨 Design System
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Colors**:
+  - Background: `#020202` (Deep Black)
+  - Accent: `#06b6d4` (Cyan 500)
+  - Text: White / Neutral Grays
+- **Micro-interactions**: Hover effects, magnetic buttons, and parallax scrolling.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📜 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+<p align="center">Made with ❤️ and Code by Aman Srivastav</p>

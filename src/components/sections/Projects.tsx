@@ -1,9 +1,9 @@
 "use client";
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+
 import { homeProjects } from "@/lib/data";
 
 const ProjectCard = ({ project, index }: { project: typeof homeProjects[0], index: number }) => {
