@@ -178,7 +178,7 @@ export const AllProjects = () => {
                     transition={{ duration: 0.8 }}
                 >
                     <span className="block font-mono text-cyan-500 text-sm uppercase tracking-[0.2em] mb-6">
-                        Selected Works (2023-2024)
+                        Selected Works (2025-2026)
                     </span>
                     <h1 className="text-[12vw] leading-[0.8] font-black tracking-tighter text-white">
                         DIGITAL <br />

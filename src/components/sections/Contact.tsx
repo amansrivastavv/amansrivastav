@@ -43,7 +43,7 @@ export const Contact = () => {
                <input 
                  type="text" 
                  required 
-                 placeholder="JOHN DOE"
+                 placeholder="Your Name"
                  className="w-full bg-transparent text-2xl md:text-3xl font-medium text-white placeholder:text-neutral-800 focus:outline-none uppercase"
                />
            </div>

@@ -62,7 +62,7 @@ export const ParticleBackground = () => {
       canvas.width = w;
       canvas.height = h;
       particles = [];
-      const numberOfParticles = Math.min((w * h) / 15000, 100); // Responsive density
+      const numberOfParticles = Math.min((w * h) / 15000, 100); 
       for (let i = 0; i < numberOfParticles; i++) {
         particles.push(createParticle());
       }
