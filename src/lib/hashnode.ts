@@ -8,6 +8,9 @@ export interface HashnodePost {
   coverImage: {
     url: string;
   };
+  ogMetaData?: {
+    image: string;
+  };
   publishedAt: string;
   readTimeInMinutes: number;
   tags?: {
@@ -40,6 +43,9 @@ export async function fetchHashnodePosts(hostname: string) {
               slug
               coverImage {
                 url
+              }
+              ogMetaData {
+                image
               }
               publishedAt
               readTimeInMinutes

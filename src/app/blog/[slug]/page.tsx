@@ -377,40 +377,55 @@ export default function BlogPostPage() {
               <div className="flex flex-col gap-8">
                 {suggestedPosts.map((p) => (
                   <Link key={p.id} href={`/blog/${p.slug}`} className="group block">
-                     <article className="flex flex-col gap-4">
-                        {/* Card Image */}
-                        <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden bg-zinc-100 dark:bg-zinc-900">
-                           {p.coverImage?.url ? (
+                     <article className={`
+                        relative overflow-hidden rounded-2xl transition-all duration-500
+                        ${theme === 'light' 
+                            ? 'bg-zinc-50 hover:bg-white border border-transparent hover:border-zinc-200 hover:shadow-lg hover:shadow-zinc-200/50' 
+                            : 'bg-zinc-900/40 hover:bg-zinc-900 border border-white/5 hover:border-cyan-500/30 hover:shadow-2xl hover:shadow-cyan-900/20'
+                        }
+                     `}>
+                        {/* Image Container */}
+                        <div className="relative w-full aspect-2/1 overflow-hidden">
+                           {p.coverImage?.url || p.ogMetaData?.image ? (
                               <>
                                 <Image
-                                    src={p.coverImage.url}
+                                    src={p.coverImage?.url || p.ogMetaData?.image || ""}
                                     alt={p.title}
                                     fill
-                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                    className="object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
-                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
                               </>
                            ) : (
-                              <div className="absolute inset-0 flex items-center justify-center text-zinc-300 dark:text-zinc-700">
+                              <div className={`absolute inset-0 flex items-center justify-center ${theme === 'light' ? 'bg-zinc-200' : 'bg-zinc-800'}`}>
                                   <Monitor className="w-8 h-8 opacity-20" />
                               </div>
                            )}
+                           
+                           {/* Floating Read Time Badge */}
+                           <div className="absolute top-3 right-3 px-2 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 flex items-center gap-1.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
+                                <span className="text-[9px] font-bold text-white tracking-wider">{p.readTimeInMinutes} MIN</span>
+                           </div>
                         </div>
 
                         {/* Content */}
-                        <div className="space-y-2">
-                           <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-cyan-500 dark:text-cyan-400/80">
-                                <span>{new Date(p.publishedAt).getFullYear()}</span>
-                                <span className="w-0.5 h-0.5 rounded-full bg-current opacity-50" />
-                                <span>{p.readTimeInMinutes} min read</span>
+                        <div className="p-5 space-y-3">
+                           <div className={`text-[10px] font-black uppercase tracking-widest ${theme === 'light' ? 'text-zinc-400' : 'text-zinc-500'}`}>
+                                {new Date(p.publishedAt).getFullYear()} Archive
                            </div>
 
                            <h4 className={`
-                                text-base font-bold leading-snug transition-colors line-clamp-3
-                                ${theme === 'light' ? 'text-zinc-800 group-hover:text-cyan-600' : 'text-zinc-300 group-hover:text-cyan-400'}
+                                text-sm sm:text-base font-bold leading-snug transition-colors line-clamp-2
+                                ${theme === 'light' ? 'text-zinc-800 group-hover:text-cyan-600' : 'text-zinc-200 group-hover:text-cyan-400'}
                            `}>
                               {p.title}
                            </h4>
+                           
+                           <div className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 ${theme === 'light' ? 'text-zinc-400 group-hover:text-zinc-600' : 'text-zinc-600 group-hover:text-zinc-400'}`}>
+                                <span>Access Entry</span>
+                                <ArrowLeft className="w-3 h-3 rotate-180 transition-transform duration-300 group-hover:translate-x-1" />
+                           </div>
                         </div>
                      </article>
                   </Link>

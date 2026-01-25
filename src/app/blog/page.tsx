@@ -8,11 +8,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { fetchHashnodePosts, HashnodePost } from "@/lib/hashnode";
 
+import { SearchBar } from "@/components/blog/SearchBar";
+
 const HASHNODE_HOSTNAME = "amansrivastav.hashnode.dev"; 
 
 export default function BlogPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [posts, setPosts] = useState<HashnodePost[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   
   const { scrollYProgress } = useScroll({
@@ -21,6 +24,11 @@ export default function BlogPage() {
   });
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+
+  const filteredPosts = posts.filter(post => 
+    post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    post.brief.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   useEffect(() => {
     async function getPosts() {
@@ -124,8 +132,16 @@ export default function BlogPage() {
              </motion.div>
         </header>
 
-        {/* --- BEAUTIFUL GRID CARDS --- */}
+      {/* --- SEARCH SECTION --- */}
+        <div className="w-full flex justify-center relative z-30">
+            <SearchBar value={searchQuery} onSearch={setSearchQuery} />
+        </div>
+
+        <div className="h-32 w-full" />
+
+      {/* --- BEAUTIFUL GRID CARDS --- */}
         <section className="relative min-h-[400px]">
+             
             {isLoading ? (
                 <div className="py-40 flex flex-col items-center justify-center gap-6">
                     <div className="relative">
@@ -139,7 +155,7 @@ export default function BlogPage() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
                     <AnimatePresence mode="popLayout">
-                        {posts.map((post, idx) => (
+                        {filteredPosts.map((post, idx) => (
                             <BlogCard 
                                 key={post.id} 
                                 post={post} 
@@ -150,10 +166,12 @@ export default function BlogPage() {
                 </div>
             )}
 
-            {!isLoading && posts.length === 0 && (
+            {!isLoading && filteredPosts.length === 0 && (
                 <div className="py-40 text-center border border-white/5 rounded-3xl bg-white/2">
                     <Sparkles className="w-12 h-12 text-neutral-800 mx-auto mb-6" />
-                    <p className="text-2xl font-serif italic text-neutral-500">Wait... the signal is offline.</p>
+                    <p className="text-2xl font-serif italic text-neutral-500">
+                        {searchQuery ? "No matching frequencies located." : "Wait... the signal is offline."}
+                    </p>
                 </div>
             )}
         </section>
@@ -212,9 +230,9 @@ const BlogCard = ({ post, index }: { post: HashnodePost, index: number }) => {
                 
                 {/* Visual Header */}
                 <div className="relative aspect-16/10 overflow-hidden bg-neutral-900">
-                    {post.coverImage?.url ? (
+                    {post.coverImage?.url || post.ogMetaData?.image ? (
                         <Image 
-                            src={post.coverImage.url}
+                            src={post.coverImage?.url || post.ogMetaData?.image || ""}
                             alt={post.title}
                             fill
                             className="object-cover transition-all duration-1000 scale-100 group-hover:scale-110 grayscale group-hover:grayscale-0 opacity-80 group-hover:opacity-100"
