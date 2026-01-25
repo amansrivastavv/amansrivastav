@@ -61,7 +61,7 @@ export const CustomCursor = () => {
         translateY: cursorYSpring,
       }}
       className={cn(
-        "fixed top-0 left-0 pointer-events-none z-[99999] flex items-center justify-center transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]",
+        "fixed top-0 left-0 pointer-events-none z-99999 hidden md:flex items-center justify-center transition-all duration-300 ease-[cubic-bezier(0.25,1,0.5,1)]",
         "mix-blend-difference" // Key change for visibility on all backgrounds
       )}
     >

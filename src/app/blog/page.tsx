@@ -64,11 +64,11 @@ export default function BlogPage() {
         <div className="w-full max-w-7xl px-6 sm:px-12 pb-40">
         
         {/* --- BALANCED HERO --- */}
-        <header className="min-h-[90vh] flex flex-col justify-center py-32 text-center">
+        <header className="min-h-[70vh] md:min-h-[90vh] flex flex-col justify-center py-16 md:py-32 text-center">
              <motion.div 
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex flex-col items-center gap-6 mb-16"
+                className="flex flex-col items-center gap-6 mb-8 md:mb-16"
              >
                 <Link href="/" className="group flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.4em] text-cyan-500">
                     <div className="w-10 h-10 rounded-full border border-cyan-500/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-700">
@@ -102,7 +102,7 @@ export default function BlogPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="mt-16 flex flex-col items-center space-y-10"
+                className="mt-8 md:mt-16 flex flex-col items-center space-y-10"
              >
                 <p className="text-xl md:text-2xl font-light text-neutral-400 leading-relaxed max-w-3xl mx-auto">
                     Notes on building software, understanding networks, and navigating modern cybersecurity.
@@ -137,7 +137,7 @@ export default function BlogPage() {
             <SearchBar value={searchQuery} onSearch={setSearchQuery} />
         </div>
 
-        <div className="h-32 w-full" />
+        <div className="h-12 md:h-32 w-full" />
 
       {/* --- BEAUTIFUL GRID CARDS --- */}
         <section className="relative min-h-[400px]">
@@ -226,7 +226,7 @@ const BlogCard = ({ post, index }: { post: HashnodePost, index: number }) => {
             }}
             className="group block relative"
         >
-            <Link href={`/blog/${post.slug}`} className="flex flex-col h-full bg-[#080808]/40 border border-white/5 rounded-3xl overflow-hidden hover:border-cyan-500/30 transition-all duration-700 shadow-2xl hover:shadow-cyan-500/5 group" >
+            <Link href={`/blog/${post.slug}`} className="flex flex-col h-full bg-[#080808]/40 border border-white/5 rounded-xl overflow-hidden hover:border-cyan-500/30 transition-all duration-700 shadow-2xl hover:shadow-cyan-500/5 group" >
                 
                 {/* Visual Header */}
                 <div className="relative aspect-16/10 overflow-hidden bg-neutral-900">
@@ -257,7 +257,7 @@ const BlogCard = ({ post, index }: { post: HashnodePost, index: number }) => {
                 </div>
 
                 {/* Content Body */}
-                <div className="p-8 flex-1 flex flex-col space-y-6 relative">
+                <div className="px-8 py-6 flex-1 flex flex-col space-y-6 relative">
                     <div className="flex items-center justify-between">
                          <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.3em] text-cyan-500/60">
                             <Calendar className="w-3 h-3" />
@@ -267,17 +267,17 @@ const BlogCard = ({ post, index }: { post: HashnodePost, index: number }) => {
                     </div>
 
                     <div className="space-y-4 flex-1">
-                        <h2 className="text-2xl font-serif font-black text-white group-hover:text-cyan-400 leading-[1.1] transition-colors duration-500 line-clamp-2">
+                        <h2 className="text-2xl font-serif font-bold text-white group-hover:text-cyan-400 leading-snug transition-colors duration-500 line-clamp-2">
                             {post.title}
                         </h2>
-                        <p className="text-sm text-neutral-500 font-light leading-relaxed line-clamp-3">
+                        <p className="text-sm text-neutral-500 font-light leading-loose line-clamp-2">
                             {post.brief}
                         </p>
                     </div>
 
-                    <div className="pt-6 border-t border-white/5 flex items-center justify-between">
+                    <div className="pt-6 border-t border-white/5 flex items-center justify-between mt-auto">
                         <span className="text-[10px] font-black uppercase tracking-[0.4em] text-neutral-700 group-hover:text-white transition-colors">
-                            Access Entry
+                            Read Article
                         </span>
                         <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-500 group-hover:-rotate-45">
                             <ArrowUpRight className="w-4 h-4 text-neutral-500 group-hover:text-black" />
