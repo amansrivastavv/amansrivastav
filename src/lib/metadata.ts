@@ -10,58 +10,24 @@ export const siteMetadata: Metadata = {
   },
 
   description:
-    'Aman Srivastav is a software engineer based in Noida, India, with 2+ years of production experience building secure, high-performance web applications and system-driven interfaces.',
+    'Aman Srivastav: Software Engineer based in Noida, India. Specializing in secure, high-performance web applications and system-driven frontend architecture.',
 
+  // BASE URL: Important for images to work
   metadataBase: new URL('https://www.amansrivastav.com'),
 
   /* =========================
-     KEYWORDS (MINIMAL & CLEAN)
-     Note: Google mostly ignores this,
-     but we keep it non-spammy.
+     KEYWORDS (MINIMAL & FACTUAL)
   ========================== */
   keywords: [
     'Aman Srivastav',
     'Software Engineer',
-    'Web Applications',
+    'Software Engineer Noida',
+    'Web Application Development',
     'System Architecture',
-    'Frontend Engineering',
-    'React',
-    'Next.js',
-    'Noida India',
-
-    'Aman Srivastav',
-    'Aman Srivastava',
-    'Aman Kumar Srivastav',
-    'Aman Srivastav Portfolio',
-    'Aman Srivastav Developer',
-    'Aman Srivastav Designer',
-    'Aman Srivastav From Gorakhpur',
-    'Aman Srivastav From Noida',
-    'Aman Srivastav From Uttar Pradesh',
-    'Aman Srivastav From India',
-    'Aman Srivastav From Delhi',
-    'Aman Srivastav AKTU',
-    'Aman Srivastav B.Tech Engineer',
-    'Aman Srivastav Software Engineer',
-    'Aman Srivastav Frontend Engineer',
-    'Aman Srivastav React Engineer',
-    'Aman Srivastav Next.js Engineer',
-    'Aman Srivastav Tailwind CSS Engineer',
-    'Aman Srivastav Three.js Engineer',
-    'Aman Srivastav Framer Motion Engineer',
-    'Aman Srivastav GSAP Engineer',
-    'Aman Srivastav UI/UX Engineer',
-    'Aman Srivastav Web Engineer',
-    'Aman Srivastav Web Developer',
-    'Aman Srivastav Web',
-    'Frontend Developer',
-    'React Developer',
-    'Next.js Expert',
-    'Creative Web Developer',
-    'UI/UX Engineer',
-    'Javascript Developer',
-    'Typescript Developer',
-    'Web Performance Optimization', // Location Based (India & Global) "Frontend Developer India", "Best Frontend Developer in Noida", "React Developer Delhi NCR", "Web Developer Gorakhpur", "Top Web Developer India", // Niche & Style "Award Winning Portfolio", "Awwwards Style Website", "Premium Web Design", "Interactive Websites", "Three.js Developer", "GSAP Animations", "Framer Motion Expert", "Freelance React Developer"
+    'React.js Engineering',
+    'Next.js Specialist',
+    'TypeScript Developer India',
+    'Technical Software Engineering Portfolio',
   ],
 
   authors: [{ name: 'Aman Srivastav' }],
@@ -80,7 +46,7 @@ export const siteMetadata: Metadata = {
     url: 'https://www.amansrivastav.com',
     title: 'Aman Srivastav | Software Engineer',
     description:
-      'Software engineer focused on building secure, high-performance web applications and system-oriented interfaces.',
+      'Aman Srivastav: Software Engineer based in Noida, India. Specializing in secure, high-performance web applications and system-driven frontend architecture.',
     siteName: 'Aman Srivastav',
     images: [
       {
@@ -99,7 +65,7 @@ export const siteMetadata: Metadata = {
     card: 'summary_large_image',
     title: 'Aman Srivastav | Software Engineer',
     description:
-      'Building secure, high-performance web applications with modern frontend technologies.',
+      'Aman Srivastav: Software Engineer based in Noida, India. Specializing in secure, high-performance web applications and system-driven frontend architecture.',
     images: ['/Og_dark_theme.png'],
   },
 
@@ -114,6 +80,7 @@ export const siteMetadata: Metadata = {
     shortcut: ['/FavLight.png'],
     apple: [{ url: '/FavLight.png' }],
   },
+  manifest: '/manifest.json',
 
   /* =========================
      ROBOTS

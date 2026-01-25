@@ -82,17 +82,21 @@ export const Hero = () => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-8 md:mb-12">
                 <div className="overflow-hidden">
                     <p className="hero-meta text-sm md:text-base font-mono text-cyan-500 uppercase tracking-widest mb-2 origin-left">
-                        Frontend Engineer
+                        Software Engineer
                     </p>
-                    <h1 className="text-[12vw] md:text-[8vw] leading-[0.85] font-serif font-black text-white tracking-tighter mix-blend-difference flex">
+                    {/* Semantic H1 for SEO */}
+                    <h1 className="sr-only">Aman Srivastav — Software Engineer</h1>
+                    
+                    {/* Visual Text (Hidden from Screen Readers to avoid duplication) */}
+                    <div aria-hidden="true" className="text-[12vw] md:text-[8vw] leading-[0.85] font-serif font-black text-white tracking-tighter mix-blend-difference flex">
                         <SplitText>AMAN</SplitText>
-                    </h1>
+                    </div>
                 </div>
                 
                 <div className="overflow-hidden text-right self-end pb-4 md:pb-0">
-                    <h1 className="text-[11vw] md:text-[8vw] leading-[0.85] font-serif font-black text-neutral-800 tracking-tighter flex justify-end">
+                    <div aria-hidden="true" className="text-[11vw] md:text-[8vw] leading-[0.85] font-serif font-black text-neutral-800 tracking-tighter flex justify-end">
                         <SplitText className="text-neutral-800">SRIVASTAV</SplitText>
-                    </h1>
+                    </div>
                 </div>
             </div>
 

@@ -181,8 +181,8 @@ export const AllProjects = () => {
                         Selected Works (2025-2026)
                     </span>
                     <h1 className="text-[12vw] leading-[0.9] font-black tracking-tighter text-white">
-                        DIGITAL <br />
-                        <span className="text-white/20">REALITY.</span>
+                        SELECTED <br />
+                        <span className="text-white/20">PROJECTS.</span>
                     </h1>
                 </motion.div>
             </section>

@@ -65,7 +65,7 @@ export const Projects = () => {
         <div className="container mx-auto px-6 max-w-7xl">
             <div className="mb-24 flex items-end justify-between border-b border-white/10 pb-8">
                 <h2 className="text-[10vw] md:text-8xl font-serif font-black text-white/10 leading-none">
-                    WORKS
+                    PROJECTS
                 </h2>
                 <div className="text-right hidden md:block">
                     <p className="text-xs uppercase tracking-[0.2em] text-cyan-500">Selected Projects</p>

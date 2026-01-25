@@ -21,17 +21,17 @@ export const Footer = () => {
     }, []);
 
     return (
-        <div 
+        <footer 
             className="relative h-[80vh] md:h-[60vh] w-full" 
             style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
         >
             <div className="fixed bottom-0 h-[80vh] md:h-[60vh] w-full bg-[#0E0E0E] flex flex-col justify-between p-6 md:p-12">
                 
                 {/* Massive Animated Text in Background */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none select-none overflow-hidden">
-                    <h1 className="text-[30vw] font-black text-white leading-none tracking-tighter animate-pulse">
+                <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none select-none overflow-hidden" aria-hidden="true">
+                    <div className="text-[30vw] font-black text-white leading-none tracking-tighter animate-pulse">
                         AMAN
-                    </h1>
+                    </div>
                 </div>
 
                 {/* Content Grid */}
@@ -45,24 +45,25 @@ export const Footer = () => {
                         </a>
                     </div>
                     
-                    <div className="space-y-4">
+                    <nav className="space-y-4" aria-label="Social links">
                         <p className="text-xs text-neutral-500 uppercase tracking-widest font-bold">Socials</p>
                         <ul className="space-y-2 text-lg text-neutral-300">
-                            <li><a href="#" className="hover:text-white hover:underline">LinkedIn</a></li>
-                            <li><a href="#" className="hover:text-white hover:underline">GitHub</a></li>
-                            <li><a href="#" className="hover:text-white hover:underline">Twitter</a></li>
-                            <li><a href="#" className="hover:text-white hover:underline">Instagram</a></li>
+                            <li><a href="https://linkedin.com/in/amansrivastav" target="_blank" rel="noopener noreferrer" className="hover:text-white hover:underline">LinkedIn</a></li>
+                            <li><a href="https://github.com/amansrivastav" target="_blank" rel="noopener noreferrer" className="hover:text-white hover:underline">GitHub</a></li>
+                            <li><a href="https://twitter.com/amansrivastav" target="_blank" rel="noopener noreferrer" className="hover:text-white hover:underline">Twitter</a></li>
+                            <li><a href="https://instagram.com/amansrivastav" target="_blank" rel="noopener noreferrer" className="hover:text-white hover:underline">Instagram</a></li>
                         </ul>
-                    </div>
+                    </nav>
                     
-                    <div className="space-y-4">
+                    <nav className="space-y-4" aria-label="Footer navigation">
                          <p className="text-xs text-neutral-500 uppercase tracking-widest font-bold">Sitemap</p>
                          <ul className="space-y-2 text-lg text-neutral-300">
                             <li><Link href="/" className="hover:text-white">Home</Link></li>
                             <li><Link href="/projects" className="hover:text-white">Work</Link></li>
                             <li><Link href="/story" className="hover:text-white">Story</Link></li>
+                            <li><Link href="/blog" className="hover:text-white">Blog</Link></li>
                         </ul>
-                    </div>
+                    </nav>
                 </div>
 
                 {/* Bottom Bar */}
@@ -81,6 +82,6 @@ export const Footer = () => {
                 </div>
 
             </div>
-        </div>
+        </footer>
     );
 };

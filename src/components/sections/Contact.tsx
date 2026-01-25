@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export const Contact = () => {
+export const Contact = ({ isPage = false }: { isPage?: boolean }) => {
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -14,19 +14,21 @@ export const Contact = () => {
     setFormState('success');
   };
 
+  const HeadingTag = isPage ? "h1" : "h2";
+
   return (
     <section id="contact" className="relative min-h-screen flex items-center bg-[#050505] py-24 px-6 md:px-12 z-20">
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
         
         {/* Left: Heading */}
         <div className="space-y-8">
-            <h2 className="text-cyan-500 font-mono text-sm uppercase tracking-widest">
-                // Initialize Protocol
-            </h2>
-            <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.9] tracking-tighter">
-                START A <br/>
-                PROJECT.
-            </h1>
+            <p className="text-cyan-500 font-mono text-sm uppercase tracking-widest">
+                Get in Touch
+            </p>
+            <HeadingTag className="text-6xl md:text-8xl font-black text-white leading-[0.9] tracking-tighter">
+                CONTACT AMAN <br/>
+                SRIVASTAV.
+            </HeadingTag>
             <p className="text-neutral-400 max-w-md text-lg leading-relaxed">
                 Have an idea? Let&apos;s engineer it into reality. Fill out the manifest below.
             </p>

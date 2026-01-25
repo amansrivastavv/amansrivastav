@@ -24,12 +24,12 @@ export const Skills = () => {
                 
                 {/* Header */}
                 <div className="text-center mb-12 absolute top-10 w-full">
-                     <h2 className="text-cyan-400 tracking-widest mb-2 uppercase font-bold text-sm">
+                     <p className="text-cyan-400 tracking-widest mb-2 uppercase font-bold text-sm">
                         Tech Stack
+                    </p>
+                    <h2 className="text-4xl font-black text-white">
+                        Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Expertise</span>
                     </h2>
-                    <h3 className="text-4xl font-black text-white">
-                        My <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Universe</span>
-                    </h3>
                 </div>
                 
                 {/* SOL: Center Image/Text */}

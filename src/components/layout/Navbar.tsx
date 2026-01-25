@@ -122,6 +122,8 @@ export const Navbar = () => {
             <Magnetic>
               <button
                 onClick={() => setIsOpen(!isOpen)}
+                aria-expanded={isOpen}
+                aria-label={isOpen ? "Close menu" : "Open menu"}
                 className="group relative w-12 h-12 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-all duration-300"
               >
                 <div className="flex flex-col gap-[5px] items-center justify-center w-6 overflow-hidden">
@@ -164,13 +166,14 @@ export const Navbar = () => {
             <div className="w-full max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 h-full py-24 md:py-32 items-center">
               
               {/* NAVIGATION LINKS */}
-              <div className="flex flex-col gap-4 md:gap-6">
+              <nav className="flex flex-col gap-4 md:gap-6" aria-label="Fullscreen navigation">
                 <p className="text-xs text-neutral-500 font-bold uppercase tracking-widest mb-8 ml-1">Navigation</p>
+                <ul className="flex flex-col gap-4 md:gap-6">
                 {navLinks.map((link, i) => {
                   const isActive = link.href === "/" ? pathname === "/" : pathname?.startsWith(link.href);
                   
                   return (
-                    <motion.div
+                    <motion.li
                       key={link.name}
                       initial={{ opacity: 0, x: -50 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -194,10 +197,11 @@ export const Navbar = () => {
                           {link.name}
                         </span>
                       </Link>
-                    </motion.div>
+                    </motion.li>
                   );
                 })}
-              </div>
+                </ul>
+              </nav>
 
               {/* CONTACT & SOCIALS */}
               <div className="flex flex-col justify-between h-full max-h-[400px]">
@@ -231,6 +235,7 @@ export const Navbar = () => {
                                     href={s.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    aria-label={`Follow on ${s.name}`}
                                     className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center text-white bg-white/5 hover:bg-white hover:text-black transition-all duration-300"
                                     >
                                     {s.icon}
