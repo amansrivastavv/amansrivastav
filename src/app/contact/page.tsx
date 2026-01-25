@@ -5,7 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact Aman Srivastav | Software Engineer",
+  title: "Contact Aman Srivastav | Software Engineer in Noida, India",
   description: "Get in touch with Aman Srivastav, a Software Engineer based in Noida, India. Available for collaborations on high-performance web applications and system design.",
   keywords: ["Contact Aman Srivastav", "Hire Software Engineer Noida", "Software Engineering Collaboration", "Noida India"],
 };
