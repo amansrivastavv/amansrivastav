@@ -97,7 +97,7 @@ export default function BlogPage() {
                 className="mt-16 flex flex-col items-center space-y-10"
              >
                 <p className="text-xl md:text-2xl font-light text-neutral-400 leading-relaxed max-w-3xl mx-auto">
-                    A synchronized stream of architectural thoughts, software craftsmanship, and design philosophy captured direct from the Hashnode network.
+                    Notes on building software, understanding networks, and navigating modern cybersecurity.
                 </p>
                 
                 <div className="flex flex-wrap justify-center gap-12">
