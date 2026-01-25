@@ -83,7 +83,7 @@ export const Navbar = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
         className={cn(
-          "fixed top-0 inset-x-0 z-100 transition-all duration-500 ease-in-out font-sans",
+          "fixed top-0 inset-x-0 z-[100] transition-all duration-500 ease-in-out font-sans",
           scrolled || isOpen ? "py-4 bg-black/50 backdrop-blur-xl border-b border-white/5" : "py-6 bg-transparent"
         )}
       >

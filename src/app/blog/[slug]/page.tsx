@@ -4,14 +4,9 @@ import React, { useEffect, useState } from "react";
 import { Footer } from "@/components/layout/Footer"; 
 import { 
     ArrowLeft, 
-    Type, 
-    Monitor, 
-    Moon, 
-    Sun, 
-    Globe, 
-    ChevronDown,
-    Maximize2,
-    Minimize2
+    ArrowUpRight,
+    Share2,
+    Monitor
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -25,22 +20,11 @@ import {
 
 const HASHNODE_HOSTNAME = "amansrivastav.hashnode.dev";
 
-// --- TYPES ---
-type FontSize = 'small' | 'standard' | 'large';
-type LayoutWidth = 'standard' | 'wide';
-type Theme = 'light' | 'dark' | 'auto';
-
 export default function BlogPostPage() {
   const params = useParams();
   const [post, setPost] = useState<HashnodePostFull | null>(null);
   const [suggestedPosts, setSuggestedPosts] = useState<HashnodePost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  // --- PREFERENCES STATE ---
-  const [fontSize, setFontSize] = useState<FontSize>('standard');
-  const [layoutWidth, setLayoutWidth] = useState<LayoutWidth>('standard');
-  const [theme, setTheme] = useState<Theme>('dark');
-  const [showAppearanceMenu, setShowAppearanceMenu] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -63,42 +47,13 @@ export default function BlogPostPage() {
     load();
   }, [params.slug]);
 
-  // --- DYNAMIC CLASSES ---
-  const fontSizeClasses = {
-      small: 'prose-sm',
-      standard: 'prose-lg',
-      large: 'prose-xl'
-  };
-
-  const containerWidthClasses = {
-      standard: 'max-w-[70ch]',
-      wide: 'max-w-[90ch]'
-  };
-
-  const themeClasses = {
-      light: 'bg-white text-zinc-900 selection:bg-zinc-200 selection:text-black',
-      dark: 'bg-[#050505] text-zinc-400 selection:bg-zinc-800 selection:text-zinc-200',
-      auto: 'bg-[#050505] text-zinc-400' // Defaulting auto to dark for now
-  };
-
-  const navbarClasses = {
-      light: 'bg-white border-zinc-200',
-      dark: 'bg-[#050505] border-zinc-900',
-      auto: 'bg-[#050505] border-zinc-900'
-  };
-
-  const handleTranslate = () => {
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        alert("Translation is not available in development (localhost). It requires a public URL.");
-        return;
-    }
-    window.open(`https://translate.google.com/translate?sl=auto&u=${encodeURIComponent(window.location.href)}`, '_blank');
-  };
-
   if (isLoading) {
     return (
-      <div className={`min-h-screen flex items-center justify-center ${theme === 'light' ? 'bg-white' : 'bg-[#050505]'}`}>
-        <div className={`w-5 h-5 border-2 rounded-full animate-spin ${theme === 'light' ? 'border-zinc-300 border-t-zinc-900' : 'border-zinc-600 border-t-zinc-200'}`} />
+      <div className="min-h-screen flex items-center justify-center bg-[#050505]">
+        <div className="flex flex-col items-center gap-4">
+             <div className="w-12 h-1 stroke-current animate-pulse text-white" />
+             <span className="text-[10px] uppercase font-black tracking-widest opacity-50 text-white">Loading Data</span>
+        </div>
       </div>
     );
   }
@@ -112,357 +67,168 @@ export default function BlogPostPage() {
   });
 
   return (
-    <div className={`min-h-screen w-full flex flex-col items-center transition-colors duration-300 ${themeClasses[theme]}`}>
+    <div className="min-h-screen w-full flex flex-col items-center pb-20 font-sans bg-[#050505] text-[#E0E0E0] selection:bg-white selection:text-black">
       
-      {/* NAVBAR */}
-      <nav className={`w-full sticky top-0 z-40 border-b flex justify-center transition-colors duration-300 ${navbarClasses[theme]}`}>
-        <div className="w-full max-w-[1280px] px-6 h-16 flex items-center justify-between">
-            {/* Back Button (Top) */}
-            <Link
-                href="/blog"
-                className={`flex items-center gap-2 text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-lg border transition-all hover:-translate-y-0.5
-                    ${theme === 'light' 
-                        ? 'border-zinc-200 text-zinc-600 hover:text-black hover:border-black bg-zinc-50 hover:bg-white' 
-                        : 'border-zinc-800 text-zinc-500 hover:text-white hover:border-white bg-zinc-900/50 hover:bg-zinc-900'}`
-                }
-            >
-                <ArrowLeft className="w-4 h-4" />
-                <span className="hidden sm:inline">Back</span>
-            </Link>
-
-            {/* Appearance Controls */}
-            <div className="flex items-center gap-3 relative">
-                
-                {/* Visible Translate Button */}
-                <button 
-                    onClick={handleTranslate}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-all border hover:-translate-y-0.5
-                        ${theme === 'light' 
-                            ? 'border-zinc-200 text-zinc-600 hover:text-black hover:border-black bg-zinc-50 hover:bg-white' 
-                            : 'border-zinc-800 text-zinc-400 hover:text-white hover:border-white bg-zinc-900/50 hover:bg-zinc-900'
-                        }
-                    `}
-                    title="Translate Page"
-                >
-                    <Globe className="w-4 h-4" />
-                    <span className="hidden sm:inline">Translate</span>
-                </button>
-
-                {/* Appearance Toggle */}
-                <button 
-                    onClick={() => setShowAppearanceMenu(!showAppearanceMenu)}
-                    className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-all border hover:-translate-y-0.5 ${
-                        showAppearanceMenu 
-                            ? (theme === 'light' ? 'bg-black text-white border-black' : 'bg-white text-black border-white')
-                            : (theme === 'light' 
-                                ? 'border-zinc-200 text-zinc-600 hover:text-black hover:border-black bg-zinc-50 hover:bg-white' 
-                                : 'border-zinc-800 text-zinc-400 hover:text-white hover:border-white bg-zinc-900/50 hover:bg-zinc-900')
-                    }`}
-                >
-                    <Type className="w-4 h-4" />
-                    <span className="hidden sm:inline">Appearance</span>
-                    <ChevronDown className={`w-3 h-3 transition-transform ${showAppearanceMenu ? 'rotate-180' : ''}`} />
-                </button>
-
-                {/* POPUP MENU */}
-                {showAppearanceMenu && (
-                    <>
-                        <div className="fixed inset-0 z-40" onClick={() => setShowAppearanceMenu(false)} />
-                        <div className={`absolute top-full right-0 mt-4 w-80 rounded-xl border-2 p-6 z-50 flex flex-col gap-8
-                            ${theme === 'light' ? 'bg-white border-zinc-200 shadow-xl' : 'bg-[#0A0A0A] border-zinc-800 shadow-2xl shadow-black'}
-                        `}>
-                            {/* 1. LAYOUT WIDTH */}
-                            <div className="space-y-3">
-                                <span className={`text-[10px] font-black uppercase tracking-widest ${theme === 'light' ? 'text-zinc-400' : 'text-zinc-600'}`}>Width</span>
-                                <div className={`flex rounded-xl p-1.5 border-2 ${theme === 'light' ? 'bg-zinc-50 border-zinc-100' : 'bg-black border-zinc-900'}`}>
-                                    {(['standard', 'wide'] as LayoutWidth[]).map((w) => (
-                                        <button
-                                            key={w}
-                                            onClick={() => setLayoutWidth(w)}
-                                            className={`flex-1 py-2.5 px-2 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2
-                                                ${layoutWidth === w 
-                                                    ? (theme === 'light' ? 'bg-black text-white shadow-md' : 'bg-white text-black') 
-                                                    : (theme === 'light' ? 'text-zinc-400 hover:text-black' : 'text-zinc-600 hover:text-zinc-300')
-                                                }
-                                            `}
-                                        >
-                                            {w === 'standard' ? <Minimize2 className="w-3 h-3" /> : <Maximize2 className="w-3 h-3" />}
-                                            <span className="capitalize">{w}</span>
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* 2. TEXT SIZE */}
-                            <div className="space-y-3">
-                                <span className={`text-[10px] font-black uppercase tracking-widest ${theme === 'light' ? 'text-zinc-400' : 'text-zinc-600'}`}>Text Size</span>
-                                <div className={`flex rounded-xl p-1.5 border-2 ${theme === 'light' ? 'bg-zinc-50 border-zinc-100' : 'bg-black border-zinc-900'}`}>
-                                    {(['small', 'standard', 'large'] as FontSize[]).map((s) => (
-                                        <button
-                                            key={s}
-                                            onClick={() => setFontSize(s)}
-                                            className={`flex-1 py-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center
-                                                ${fontSize === s 
-                                                    ? (theme === 'light' ? 'bg-black text-white shadow-md' : 'bg-white text-black') 
-                                                    : (theme === 'light' ? 'text-zinc-400 hover:text-black' : 'text-zinc-600 hover:text-zinc-300')
-                                                }
-                                            `}
-                                        >
-                                            <span style={{ fontSize: s === 'small' ? '12px' : s === 'standard' ? '14px' : '16px' }}>
-                                                A
-                                            </span>
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* 3. THEME MODE */}
-                            <div className="space-y-3">
-                                <span className={`text-[10px] font-black uppercase tracking-widest ${theme === 'light' ? 'text-zinc-400' : 'text-zinc-600'}`}>Theme</span>
-                                <div className={`flex rounded-xl p-1.5 border-2 ${theme === 'light' ? 'bg-zinc-50 border-zinc-100' : 'bg-black border-zinc-900'}`}>
-                                    {[
-                                        { id: 'light', icon: Sun, label: 'Light' },
-                                        { id: 'auto', icon: Monitor, label: 'Auto' },
-                                        { id: 'dark', icon: Moon, label: 'Dark' }
-                                    ].map((t) => (
-                                        <button
-                                            key={t.id}
-                                            onClick={() => setTheme(t.id as Theme)}
-                                            className={`flex-1 py-2.5 rounded-lg text-xs font-bold transition-all flex flex-col items-center gap-1
-                                                ${theme === t.id 
-                                                    ? (theme === 'light' ? 'bg-black text-white shadow-md' : 'bg-white text-black') 
-                                                    : (theme === 'light' ? 'text-zinc-400 hover:text-black' : 'text-zinc-600 hover:text-zinc-300')
-                                                }
-                                            `}
-                                        >
-                                            <t.icon className="w-3 h-3" />
-                                            <span className="hidden">{t.label}</span>
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </>
-                )}
-            </div>
-        </div>
-      </nav>
-
+      {/* Spacer to clear fixed navbar */}
+      <div className="w-full h-[120px] lg:h-[160px] shrink-0" />
+      
       {/* MAIN CONTAINER */}
-      <main className="w-full max-w-[1280px] px-6 py-14 lg:py-20 flex-1">
-        <div className="flex flex-col lg:flex-row gap-16">
+      <main className="w-full max-w-[1400px] px-4 md:px-8 flex-1 ">
+        <div className="flex flex-col lg:flex-row gap-16 xl:gap-24 relative">
           
-          {/* CONTENT — 70% (or dynamic based on preferences) */}
-          <article className="w-full lg:w-[70%] min-w-0 transition-all duration-300">
-            {/* HEADER */}
-            <header className={`${containerWidthClasses[layoutWidth]} mb-12 transition-all duration-300`}>
-              <div className={`flex items-center gap-3 text-xs uppercase tracking-wider mb-6 ${theme === 'light' ? 'text-zinc-500' : 'text-zinc-500'}`}>
-                <span>{date}</span>
-                <span>•</span>
-                <span>{post.readTimeInMinutes} min read</span>
+          {/* ARTICLE CONTENT */}
+          <article className="w-full lg:flex-1 min-w-0">
+            
+            {/* Header */}
+            <header className="mx-auto max-w-3xl mb-12 lg:mb-16">
+              <div className="flex flex-wrap items-center gap-4 text-xs font-mono mb-8 opacity-60 text-zinc-400">
+                 <Link href="/blog" className="hover:text-cyan-400 transition-colors flex items-center gap-1 uppercase tracking-widest">
+                    <ArrowLeft className="w-3 h-3" /> Back to Archive
+                 </Link>
+                 <span className="w-px h-3 bg-current" />
+                 <span className="uppercase tracking-widest">{date}</span>
+                 <span className="w-px h-3 bg-current" />
+                 <span className="uppercase tracking-widest">{post.readTimeInMinutes} MIN READ</span>
               </div>
 
-              <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight tracking-tight mb-8 ${theme === 'light' ? 'text-zinc-900' : 'text-white'}`}>
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-serif font-medium leading-[1.1] mb-10 tracking-tight text-white">
                 {post.title}
               </h1>
 
-              <div className={`flex items-center gap-4 py-5 border-y ${theme === 'light' ? 'border-zinc-200' : 'border-zinc-900'}`}>
-                <div className={`w-10 h-10 rounded-full overflow-hidden relative ${theme === 'light' ? 'bg-zinc-100' : 'bg-zinc-800'}`}>
-                  {post.author?.profilePicture && (
-                    <Image
-                      src={post.author.profilePicture}
-                      alt={post.author.name}
-                      fill
-                      className="object-cover"
-                    />
-                  )}
-                </div>
-                <div>
-                  <div className={`text-sm font-semibold ${theme === 'light' ? 'text-zinc-900' : 'text-zinc-200'}`}>
-                    {post.author?.name}
-                  </div>
-                  <div className="text-xs text-zinc-500">Author</div>
-                </div>
+              {/* Author & Share Row */}
+              <div className="flex items-center justify-between py-6 border-y border-white/10">
+                 <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-none bg-neutral-800 relative overflow-hidden">
+                         {post.author?.profilePicture && (
+                             <Image src={post.author.profilePicture} alt={post.author.name} fill className="object-cover" />
+                         )}
+                    </div>
+                    <div>
+                        <p className="text-sm font-bold uppercase tracking-wider leading-none mb-1 text-white">{post.author?.name}</p>
+                        <p className="text-[10px] opacity-50 font-mono uppercase tracking-widest text-zinc-400">Operator</p>
+                    </div>
+                 </div>
+
+                 <button className="p-3 hover:bg-white/5 rounded-none transition-colors" title="Share Article">
+                    <Share2 className="w-5 h-5 opacity-60" />
+                 </button>
               </div>
             </header>
 
-            {/* COVER */}
+            {/* Cover Image */}
             {post.coverImage?.url && (
-              <div className={`${containerWidthClasses[layoutWidth]} mb-14 transition-all duration-300`}>
-                <div className={`relative aspect-[16/9] rounded-lg overflow-hidden border ${theme === 'light' ? 'border-zinc-200 bg-zinc-100' : 'border-zinc-900 bg-zinc-900'}`}>
-                  <Image
-                    src={post.coverImage.url}
-                    alt={post.title}
-                    fill
-                    className="object-cover"
-                    priority
-                  />
+              <div className="mx-auto max-w-5xl mb-16">
+                <div className="relative aspect-21/9 w-full bg-neutral-900 overflow-hidden">
+                   <Image 
+                      src={post.coverImage.url} 
+                      alt={post.title} 
+                      fill 
+                      className="object-cover" 
+                      priority 
+                   />
                 </div>
               </div>
             )}
 
-            {/* CONTENT */}
-            <div className={`${containerWidthClasses[layoutWidth]} transition-all duration-300`}>
-              <div
-                className={`
-                  prose ${theme === 'light' ? 'prose-zinc prose-headings:text-zinc-900 prose-p:text-zinc-600 prose-strong:text-zinc-900' : 'prose-invert prose-zinc prose-p:text-zinc-400 prose-headings:text-white'}
-                  ${fontSizeClasses[fontSize]}
-                  max-w-none
-                  prose-p:leading-8 prose-p:mb-7
-                  prose-headings:font-semibold prose-headings:tracking-tight
-                  prose-h2:text-2xl prose-h2:mt-14
-                  prose-a:underline-offset-4
-                  prose-blockquote:border-l-2 ${theme === 'light' ? 'prose-blockquote:border-zinc-200 prose-blockquote:text-zinc-500' : 'prose-blockquote:border-zinc-700 prose-blockquote:text-zinc-300'} prose-blockquote:pl-6 prose-blockquote:italic
-                  prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
-                  ${theme === 'light' ? 'prose-code:bg-zinc-100 prose-code:text-rose-600 prose-pre:bg-zinc-50 prose-pre:border-zinc-200' : 'prose-code:bg-zinc-900 prose-code:text-zinc-200 prose-pre:bg-[#0A0A0A] prose-pre:border-zinc-800'}
-                  prose-pre:border prose-pre:rounded-lg
-                  prose-img:rounded-lg prose-img:border ${theme === 'light' ? 'prose-img:border-zinc-200' : 'prose-img:border-zinc-900'}
-                `}
-                dangerouslySetInnerHTML={{ __html: post.content.html }}
-              />
+            {/* HTML Body */}
+            <div className="mx-auto max-w-3xl">
+                <div 
+                    className="
+                        prose prose-lg prose-invert max-w-none
+                        prose-headings:font-serif prose-headings:font-medium prose-headings:leading-tight prose-headings:text-white
+                        prose-p:font-light prose-p:leading-[1.9] prose-p:mb-8 prose-p:text-zinc-300
+                        prose-strong:font-bold prose-strong:text-white
+                        prose-li:marker:text-neutral-500
+                        prose-blockquote:border-l-2 prose-blockquote:border-cyan-500 prose-blockquote:pl-6 prose-blockquote:font-serif prose-blockquote:italic prose-blockquote:text-zinc-400
+                        prose-img:rounded-none prose-img:my-10
+                        prose-code:font-mono prose-code:text-[0.85em] prose-code:before:content-[''] prose-code:after:content-[''] prose-code:px-1.5 prose-code:py-0.5 prose-code:bg-white/5 prose-code:text-cyan-300
+                        prose-pre:rounded-none prose-pre:bg-[#111] prose-pre:border prose-pre:border-white/10
+                        prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:underline
+                    "
+                    dangerouslySetInnerHTML={{ __html: post.content.html }}
+                />
             </div>
 
+            {/* Post-Read Divider */}
+            <div className="w-full h-px bg-white/10 mt-20 mb-20" />
 
-            
           </article>
 
 
-          {/* SIDEBAR — 30% */}
-          <aside className="w-full lg:w-[30%] shrink-0">
-            <div className="lg:sticky lg:top-24 pl-0 lg:pl-8 border-l-0 lg:border-l border-zinc-200 dark:border-zinc-800 lg:ml-8 lg:border-opacity-50">
-              <div className="flex items-center gap-3 mb-8">
-                 <div className="h-px w-8 bg-zinc-300 dark:bg-zinc-700" />
-                 <h3 className="text-xs uppercase tracking-[0.2em] font-bold text-zinc-400 dark:text-zinc-500">
-                    Read Next
-                 </h3>
-              </div>
-
-              <div className="flex flex-col gap-8">
-                {suggestedPosts.map((p) => (
-                  <Link key={p.id} href={`/blog/${p.slug}`} className="group block">
-                     <article className={`
-                        relative overflow-hidden rounded-xl transition-all duration-500
-                        ${theme === 'light' 
-                            ? 'bg-zinc-50 hover:bg-white border border-transparent hover:border-zinc-200 hover:shadow-lg hover:shadow-zinc-200/50' 
-                            : 'bg-zinc-900/40 hover:bg-zinc-900 border border-white/5 hover:border-cyan-500/30 hover:shadow-2xl hover:shadow-cyan-900/20'
-                        }
-                     `}>
-                        {/* Image Container */}
-                        <div className="relative w-full aspect-2/1 overflow-hidden">
-                           {p.coverImage?.url || p.ogMetaData?.image ? (
-                              <>
-                                <Image
-                                    src={p.coverImage?.url || p.ogMetaData?.image || ""}
-                                    alt={p.title}
-                                    fill
-                                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                />
-                                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
-                              </>
-                           ) : (
-                              <div className={`absolute inset-0 flex items-center justify-center ${theme === 'light' ? 'bg-zinc-200' : 'bg-zinc-800'}`}>
-                                  <Monitor className="w-8 h-8 opacity-20" />
-                              </div>
-                           )}
-                           
-                           {/* Floating Read Time Badge */}
-                           <div className="absolute top-3 right-3 px-2 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 flex items-center gap-1.5">
-                                <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
-                                <span className="text-[9px] font-bold text-white tracking-wider">{p.readTimeInMinutes} MIN</span>
-                           </div>
-                        </div>
-
-                        {/* Content */}
-                        <div className="p-5 space-y-3">
-                           <div className={`text-[10px] font-black uppercase tracking-widest ${theme === 'light' ? 'text-zinc-400' : 'text-zinc-500'}`}>
-                                {new Date(p.publishedAt).getFullYear()} Archive
-                           </div>
-
-                           <h4 className={`
-                                text-sm sm:text-base font-bold leading-snug transition-colors line-clamp-2
-                                ${theme === 'light' ? 'text-zinc-800 group-hover:text-cyan-600' : 'text-zinc-200 group-hover:text-cyan-400'}
-                           `}>
-                              {p.title}
-                           </h4>
-                           
-                           <div className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 ${theme === 'light' ? 'text-zinc-400 group-hover:text-zinc-600' : 'text-zinc-600 group-hover:text-zinc-400'}`}>
-                                <span>Read Article</span>
-                                <ArrowLeft className="w-3 h-3 rotate-180 transition-transform duration-300 group-hover:translate-x-1" />
-                           </div>
-                        </div>
-                     </article>
-                  </Link>
-                ))}
-              </div>
-            </div>
+          {/* SIDEBAR (Desktop Right) */}
+          <aside className="hidden lg:block w-80 shrink-0 sticky top-40 h-fit">
+               <div className="pl-8 border-l border-white/10">
+                   <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40 mb-8 block text-zinc-500">
+                       Incoming Signals
+                   </span>
+                   <div className="flex flex-col gap-8">
+                       {suggestedPosts.map((p) => (
+                           <Link key={p.id} href={`/blog/${p.slug}`} className="group block">
+                               <div className="aspect-3/2 bg-neutral-900 mb-3 overflow-hidden relative grayscale group-hover:grayscale-0 transition-all duration-500">
+                                   {p.coverImage?.url || p.ogMetaData?.image ? (
+                                       <Image 
+                                        src={p.coverImage?.url || p.ogMetaData?.image || ""} 
+                                        alt={p.title} 
+                                        fill 
+                                        className="object-cover" 
+                                       />
+                                   ) : (
+                                       <div className="absolute inset-0 flex items-center justify-center opacity-20"><Monitor className="w-8 h-8"/></div>
+                                   )}
+                               </div>
+                               <h4 className="font-serif text-lg leading-tight group-hover:underline decoration-1 underline-offset-4 decoration-cyan-500 transition-all text-zinc-200 group-hover:text-white">
+                                   {p.title}
+                               </h4>
+                               <p className="text-xs font-mono mt-2 opacity-50 uppercase tracking-wide text-zinc-500">
+                                   Read: {p.readTimeInMinutes}m
+                               </p>
+                           </Link>
+                       ))}
+                   </div>
+               </div>
           </aside>
         </div>
-        
-        {/* --- DISTINCT FOOTER SECTION --- */}
-        <div className="mt-24 lg:mt-40 pt-10 lg:pt-20 border-t border-zinc-200 dark:border-zinc-800">
-            <div className="max-w-4xl mx-auto space-y-12 lg:space-y-20">
-                
-                {/* SUBSCRIBE */}
-                <div className={`rounded-xl border-2 p-6 md:p-12 lg:p-16 flex flex-col gap-8 lg:gap-10 text-center items-center relative overflow-hidden
-                    ${theme === 'light' ? 'bg-zinc-50 border-zinc-200' : 'bg-[#0A0A0A] border-zinc-800'}
-                `}>
-                    <div className="relative z-10 max-w-xl space-y-4 lg:space-y-6">
-                        <h3 className={`text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter leading-none ${theme === 'light' ? 'text-zinc-900' : 'text-white'}`}>
-                            Join the <br/> Collective
-                        </h3>
-                        <p className="text-base sm:text-lg text-zinc-500 font-medium">
-                            Insights on software architecture and network security.
-                        </p>
-                    </div>
 
-                    <div className="flex flex-col sm:flex-row gap-4 w-full max-w-lg relative z-10">
-                        <input
-                            type="email"
-                            placeholder="EMAIL ADDRESS"
-                            className={`w-full flex-1 border-2 rounded-xl px-6 py-4 lg:py-5 text-sm lg:text-base font-bold focus:outline-none transition-all uppercase placeholder:text-zinc-600
-                                ${theme === 'light' 
-                                    ? 'bg-white border-zinc-200 text-black focus:border-black' 
-                                    : 'bg-black border-zinc-800 text-white focus:border-white'
-                                }
-                            `}
-                        />
-                        <button className={`w-full sm:w-auto font-black uppercase tracking-wider text-sm px-8 lg:px-10 py-4 lg:py-5 rounded-xl border-2 transition-all hover:translate-y-[-4px] active:translate-y-0
-                            ${theme === 'light' 
-                                ? 'bg-black border-black text-white hover:bg-zinc-800 hover:border-zinc-800' 
-                                : 'bg-white border-white text-black hover:bg-zinc-200 hover:border-zinc-200'
-                            }`}>
-                            Subscribe
-                        </button>
-                    </div>
-                </div>
 
-                {/* BOTTOM NAV */}
-                <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 pb-12 lg:pb-20">
-                    <Link
-                        href="/blog"
-                        className={`w-full sm:w-auto text-center font-black uppercase tracking-widest text-[10px] sm:text-xs px-6 sm:px-8 py-4 sm:py-5 rounded-xl border-2 transition-all hover:-translate-y-1
-                            ${theme === 'light' 
-                                ? 'border-zinc-200 text-zinc-900 hover:border-black hover:bg-black hover:text-white' 
-                                : 'border-zinc-800 text-zinc-400 hover:border-white hover:bg-white hover:text-black'}`
-                        }
-                    >
-                        ← Back to Archive
-                    </Link>
-                    
-                    <button 
-                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                        className={`w-full sm:w-auto text-center font-black uppercase tracking-widest text-[10px] sm:text-xs px-6 sm:px-8 py-4 sm:py-5 rounded-xl border-2 transition-all hover:-translate-y-1
-                            ${theme === 'light' 
-                                ? 'border-zinc-200 text-zinc-900 hover:border-black hover:bg-black hover:text-white' 
-                                : 'border-zinc-800 text-zinc-400 hover:border-white hover:bg-white hover:text-black'}`
-                        }
-                    >
-                        Scroll to Top ↑
-                    </button>
-                </div>
+        {/* FOOTER / NEWSLETTER */}
+        <div className="mt-12 py-20 border-t border-white/10">
+            <div className="flex flex-col items-center text-center max-w-2xl mx-auto gap-8">
+                 <h3 className="text-4xl md:text-5xl font-serif font-medium text-white">
+                     Stay connected.
+                 </h3>
+                 <p className="opacity-60 font-light text-lg text-zinc-400">
+                     Join the collective to receive updates on software, design, and system architecture.
+                 </p>
+                 
+                 <div className="flex w-full max-w-md border-b border-white/20 focus-within:border-cyan-500 transition-colors">
+                     <input 
+                        type="email" 
+                        placeholder="ENTER EMAIL ADDRESS" 
+                        className="flex-1 bg-transparent py-4 text-sm font-bold uppercase tracking-wider outline-none placeholder:text-zinc-700 text-white"
+                     />
+                     <button className="px-4 py-4 text-xs font-black uppercase tracking-widest hover:text-cyan-500 transition-colors text-white">
+                        Subscribe
+                     </button>
+                 </div>
+            </div>
+
+            {/* Bottom Controls */}
+            <div className="flex justify-between items-center mt-24 opacity-50 hover:opacity-100 transition-opacity text-white">
+                 <Link href="/blog" className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest hover:text-cyan-500 transition-colors">
+                     <ArrowLeft className="w-4 h-4" /> Back to Archive
+                 </Link>
+                 <button 
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest hover:text-cyan-500 transition-colors"
+                 >
+                     Top <ArrowUpRight className="w-4 h-4" />
+                 </button>
             </div>
         </div>
+
       </main>
+
+      {/* Global Footer */}
       <Footer />
       <div className="h-6" />
     </div>
