@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { 
     ArrowLeft, 
-    Settings, 
     Type, 
     Monitor, 
     Moon, 
@@ -22,7 +21,6 @@ import {
   HashnodePostFull,
   HashnodePost,
 } from "@/lib/hashnode";
-import { cn } from "@/lib/utils";
 
 const HASHNODE_HOSTNAME = "amansrivastav.hashnode.dev";
 
@@ -89,7 +87,11 @@ export default function BlogPostPage() {
   };
 
   const handleTranslate = () => {
-      window.open(`https://translate.google.com/translate?sl=auto&tl=en&u=${encodeURIComponent(window.location.href)}`, '_blank');
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        alert("Translation is not available in development (localhost). It requires a public URL.");
+        return;
+    }
+    window.open(`https://translate.google.com/translate?sl=auto&u=${encodeURIComponent(window.location.href)}`, '_blank');
   };
 
   if (isLoading) {
@@ -126,13 +128,19 @@ export default function BlogPostPage() {
             {/* Appearance Controls */}
             <div className="flex items-center gap-2 relative">
                 
-                {/* Language Button */}
+                {/* Visible Translate Button */}
                 <button 
                     onClick={handleTranslate}
-                    className={`p-2 rounded-md transition-colors ${theme === 'light' ? 'hover:bg-zinc-100 text-zinc-600' : 'hover:bg-zinc-900 text-zinc-400'}`}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-colors border
+                        ${theme === 'light' 
+                            ? 'border-transparent hover:bg-zinc-100 text-zinc-600' 
+                            : 'border-transparent hover:bg-zinc-900 text-zinc-400'
+                        }
+                    `}
                     title="Translate Page"
                 >
                     <Globe className="w-4 h-4" />
+                    <span className="hidden sm:inline">Translate</span>
                 </button>
 
                 {/* Appearance Toggle */}
@@ -358,59 +366,53 @@ export default function BlogPostPage() {
 
           {/* SIDEBAR — 30% */}
           <aside className="w-full lg:w-[30%] shrink-0">
-            <div className="lg:sticky lg:top-24">
-              <h3 className="text-xs uppercase tracking-widest font-semibold text-zinc-500 mb-6">
-                Read Next
-              </h3>
+            <div className="lg:sticky lg:top-24 pl-0 lg:pl-8 border-l-0 lg:border-l border-zinc-200 dark:border-zinc-800 lg:ml-8 lg:border-opacity-50">
+              <div className="flex items-center gap-3 mb-8">
+                 <div className="h-px w-8 bg-zinc-300 dark:bg-zinc-700" />
+                 <h3 className="text-xs uppercase tracking-[0.2em] font-bold text-zinc-400 dark:text-zinc-500">
+                    Read Next
+                 </h3>
+              </div>
 
-              <div className="space-y-12">
+              <div className="flex flex-col gap-8">
                 {suggestedPosts.map((p) => (
                   <Link key={p.id} href={`/blog/${p.slug}`} className="group block">
-                    <div className={`
-                        flex flex-col gap-3 rounded-xl overflow-hidden border p-3 transition-all duration-300
-                        ${theme === 'light' 
-                            ? 'bg-white border-zinc-200 hover:border-zinc-300 hover:shadow-lg hover:shadow-zinc-200/50' 
-                            : 'bg-zinc-900/40 border-zinc-800 hover:border-zinc-700 hover:bg-zinc-900/60'
-                        }
-                    `}>
-                      {/* Card Image */}
-                      <div className={`
-                          relative w-full aspect-video rounded-lg overflow-hidden border
-                          ${theme === 'light' ? 'bg-zinc-100 border-zinc-100' : 'bg-zinc-950 border-zinc-800'}
-                      `}>
-                         {p.coverImage?.url ? (
-                            <Image
-                                src={p.coverImage.url}
-                                alt={p.title}
-                                fill
-                                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
-                         ) : (
-                            <div className="flex items-center justify-center w-full h-full">
-                                <span className="text-2xl opacity-20">🏞️</span>
-                            </div>
-                         )}
-                      </div>
-
-                      {/* Card Content */}
-                      <div className="flex flex-col gap-2">
-                        <h4 className={`
-                            font-bold text-sm leading-snug transition-colors line-clamp-2
-                            ${theme === 'light' ? 'text-zinc-800 group-hover:text-black' : 'text-zinc-200 group-hover:text-white'}
-                        `}>
-                          {p.title}
-                        </h4>
-                        
-                        <div className={`
-                            flex items-center gap-2 text-[11px] font-medium uppercase tracking-wider
-                            ${theme === 'light' ? 'text-zinc-500' : 'text-zinc-600'}
-                        `}>
-                          {new Date(p.publishedAt).getFullYear()}
-                          <span className="w-0.5 h-0.5 rounded-full bg-current opacity-50" />
-                          {p.readTimeInMinutes} min
+                     <article className="flex flex-col gap-4">
+                        {/* Card Image */}
+                        <div className="relative w-full aspect-[16/10] rounded-lg overflow-hidden bg-zinc-100 dark:bg-zinc-900">
+                           {p.coverImage?.url ? (
+                              <>
+                                <Image
+                                    src={p.coverImage.url}
+                                    alt={p.title}
+                                    fill
+                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                />
+                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                              </>
+                           ) : (
+                              <div className="absolute inset-0 flex items-center justify-center text-zinc-300 dark:text-zinc-700">
+                                  <Monitor className="w-8 h-8 opacity-20" />
+                              </div>
+                           )}
                         </div>
-                      </div>
-                    </div>
+
+                        {/* Content */}
+                        <div className="space-y-2">
+                           <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-cyan-500 dark:text-cyan-400/80">
+                                <span>{new Date(p.publishedAt).getFullYear()}</span>
+                                <span className="w-0.5 h-0.5 rounded-full bg-current opacity-50" />
+                                <span>{p.readTimeInMinutes} min read</span>
+                           </div>
+
+                           <h4 className={`
+                                text-base font-bold leading-snug transition-colors line-clamp-3
+                                ${theme === 'light' ? 'text-zinc-800 group-hover:text-cyan-600' : 'text-zinc-300 group-hover:text-cyan-400'}
+                           `}>
+                              {p.title}
+                           </h4>
+                        </div>
+                     </article>
                   </Link>
                 ))}
               </div>
