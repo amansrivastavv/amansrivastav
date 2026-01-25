@@ -3,7 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Footer } from "@/components/layout/Footer";
-import { ArrowLeft, Clock, ArrowRight, ArrowUpRight, Loader2, Sparkles, Calendar } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Loader2, Sparkles } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { fetchHashnodePosts, HashnodePost } from "@/lib/hashnode";
@@ -177,25 +177,40 @@ export default function BlogPage() {
         </section>
 
         {/* --- CTA SECTION --- */}
-        <section className="py-48 mt-48 border-t border-white/5 flex flex-col items-center">
-            <motion.div 
+        <section className="py-40 mt-32 border-t border-neutral-900 flex flex-col items-center relative overflow-hidden">
+             {/* Background Noise/Gradient - Very Subtle */}
+             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-overlay"></div>
+             
+             <motion.div 
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-center space-y-12 w-full max-w-4xl"
+                className="w-full max-w-2xl text-center relative z-10 space-y-12"
             >
-                <h3 className="text-5xl sm:text-7xl font-serif font-black uppercase tracking-tighter leading-none">
-                    Join the <br /><span className="text-neutral-900 [-webkit-text-stroke:1px_rgba(255,255,255,0.2)] italic">Collective via Email.</span>
-                </h3>
-                <div className="relative group">
-                    <input 
-                        type="email" 
-                        placeholder="ENTER TRANSMISSION ID" 
-                        className="w-full bg-white/2 border border-white/10 rounded-2xl py-8 px-8 text-2xl sm:text-3xl focus:outline-none focus:border-cyan-500 transition-all placeholder:text-neutral-800 font-serif lowercase"
-                    />
-                    <button className="absolute right-4 top-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-xl flex items-center justify-center group/btn hover:bg-cyan-500 transition-all duration-500">
-                        <ArrowRight className="w-6 h-6 text-black group-hover/btn:translate-x-1 transition-transform" />
-                    </button>
+                <div>
+                     <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-cyan-500 mb-4 block">
+                        Transmission Line
+                    </span>
+                    <h3 className="text-5xl md:text-7xl font-serif font-medium tracking-tight text-white leading-[0.9]">
+                        Join the <br/>
+                        <span className="text-neutral-500 italic">Collective.</span>
+                    </h3>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                    <form className="relative w-full group">
+                        <input 
+                            type="email" 
+                            placeholder="email@address.com" 
+                            className="w-full bg-transparent border-b border-neutral-800 py-6 text-xl md:text-2xl font-light text-white placeholder:text-neutral-700 focus:outline-none focus:border-cyan-500 transition-colors rounded-none"
+                        />
+                        <button className="absolute right-0 top-1/2 -translate-y-1/2 text-[10px] font-black uppercase tracking-widest text-neutral-500 hover:text-cyan-500 transition-colors flex items-center gap-2">
+                            Initialize <ArrowRight className="w-4 h-4" />
+                        </button>
+                    </form>
+                    <p className="text-left text-[10px] text-neutral-600 font-mono mt-2">
+                        <span className="text-neutral-700 mr-2">{'//'}</span> No spam. Weekly frequencies only.
+                    </p>
                 </div>
             </motion.div>
         </section>
@@ -209,79 +224,62 @@ export default function BlogPage() {
 }
 
 const BlogCard = ({ post, index }: { post: HashnodePost, index: number }) => {
-    const formattedDate = new Date(post.publishedAt).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric"
-    });
+    // Format date: "DEC 24, 2024"
+    const dateObj = new Date(post.publishedAt);
+    const date = dateObj.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }).toUpperCase();
+    
+    // Primary Tag
+    const tag = post.tags?.[0]?.name || "Article";
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ 
-                duration: 0.8, 
-                delay: index * 0.1, 
-                ease: [0.16, 1, 0.3, 1] 
-            }}
-            className="group block relative"
+            transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="group block"
         >
-            <Link href={`/blog/${post.slug}`} className="flex flex-col h-full bg-[#080808]/40 border border-white/5 rounded-xl overflow-hidden hover:border-cyan-500/30 transition-all duration-700 shadow-2xl hover:shadow-cyan-500/5 group" >
+            <Link href={`/blog/${post.slug}`} className="block h-full flex flex-col gap-6">
                 
-                {/* Visual Header */}
-                <div className="relative aspect-16/10 overflow-hidden bg-neutral-900">
+                {/* Visual Header - 3:2 Ratio, Sharp, Clean */}
+                <div className="relative w-full aspect-[3/2] overflow-hidden bg-neutral-900">
                     {post.coverImage?.url || post.ogMetaData?.image ? (
                         <Image 
                             src={post.coverImage?.url || post.ogMetaData?.image || ""}
                             alt={post.title}
                             fill
-                            className="object-cover transition-all duration-1000 scale-100 group-hover:scale-110 grayscale group-hover:grayscale-0 opacity-80 group-hover:opacity-100"
+                            className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-105"
                         />
                     ) : (
                         <div className="absolute inset-0 flex items-center justify-center text-neutral-800">
-                            <Sparkles className="w-12 h-12" />
+                            <Sparkles className="w-8 h-8 opacity-20" />
                         </div>
                     )}
                     
-                    {/* Floating Badges */}
-                    <div className="absolute top-4 left-4 z-10 flex gap-2 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                        <div className="px-3 py-1 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full">
-                            <p className="text-[8px] font-black uppercase tracking-widest flex items-center gap-1.5 text-cyan-400">
-                                <Clock className="w-2.5 h-2.5" />
-                                {post.readTimeInMinutes} min
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="absolute inset-0 bg-linear-to-t from-[#020202] via-[#020202]/10 to-transparent opacity-80" />
+                    {/* Subtle Overlay on Hover */}
+                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
 
-                {/* Content Body */}
-                <div className="px-8 py-6 flex-1 flex flex-col space-y-6 relative">
-                    <div className="flex items-center justify-between">
-                         <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.3em] text-cyan-500/60">
-                            <Calendar className="w-3 h-3" />
-                            {formattedDate}
-                        </div>
-                        <div className="h-px w-8 bg-white/5" />
+                {/* Content Body - Minimalist, Typographic */}
+                <div className="flex flex-col gap-4">
+                    {/* Meta Top */}
+                    <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-widest text-neutral-500 border-b border-neutral-900 pb-4 group-hover:border-neutral-800 transition-colors">
+                        <span className="text-cyan-600 font-bold">{tag}</span>
+                        <span>{date}</span>
                     </div>
 
-                    <div className="space-y-4 flex-1">
-                        <h2 className="text-2xl font-serif font-bold text-white group-hover:text-cyan-400 leading-snug transition-colors duration-500 line-clamp-2">
-                            {post.title}
-                        </h2>
-                        <p className="text-sm text-neutral-500 font-light leading-loose line-clamp-2">
-                            {post.brief}
-                        </p>
-                    </div>
+                    {/* Title */}
+                    <h2 className="text-2xl md:text-3xl font-serif font-medium text-neutral-100 leading-[1.1] group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">
+                        {post.title}
+                    </h2>
 
-                    <div className="pt-6 border-t border-white/5 flex items-center justify-between mt-auto">
-                        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-neutral-700 group-hover:text-white transition-colors">
-                            Read Article
-                        </span>
-                        <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-500 group-hover:-rotate-45">
-                            <ArrowUpRight className="w-4 h-4 text-neutral-500 group-hover:text-black" />
-                        </div>
+                    {/* Excerpt */}
+                    <p className="text-sm text-neutral-500 font-light leading-relaxed line-clamp-2 mix-blend-plus-lighter">
+                        {post.brief}
+                    </p>
+                    
+                    {/* 'Read' Indicator */}
+                    <div className="pt-2 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-neutral-600 group-hover:text-white transition-colors duration-300">
+                        Read Story <ArrowUpRight className="w-3 h-3 relative top-[1px]" />
                     </div>
                 </div>
             </Link>
