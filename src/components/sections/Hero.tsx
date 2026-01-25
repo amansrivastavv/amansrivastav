@@ -56,16 +56,7 @@ export const Hero = () => {
     return () => ctx.revert();
   }, []);
 
-  // Simple Split Text Helper
-  const SplitText = ({ children, className }: { children: string, className?: string }) => (
-    <span className={`inline-block overflow-hidden ${className}`}>
-        {children.split("").map((char, i) => (
-            <span key={i} className="hero-char inline-block origin-bottom will-change-transform">
-                {char === " " ? "\u00A0" : char}
-            </span>
-        ))}
-    </span>
-  );
+
 
   return (
     <section 
@@ -132,3 +123,14 @@ export const Hero = () => {
     </section>
   );
 };
+
+// Simple Split Text Helper
+const SplitText = ({ children, className }: { children: string, className?: string }) => (
+    <span className={`inline-block overflow-hidden ${className}`}>
+        {children.split("").map((char, i) => (
+            <span key={i} className="hero-char inline-block origin-bottom will-change-transform">
+                {char === " " ? "\u00A0" : char}
+            </span>
+        ))}
+    </span>
+);

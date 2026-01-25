@@ -34,8 +34,8 @@ export const Skills = () => {
                 
                 {/* SOL: Center Image/Text */}
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-32 h-32 rounded-full bg-white/5 border border-white/10 backdrop-blur-md flex items-center justify-center shadow-[0_0_50px_rgba(6,182,212,0.4)]">
-                    <span className="font-bold text-center leading-tight">
-                        FULL<br/>STACK<br/><span className="text-cyan-400 text-xs">DEV</span>
+                    <span className="font-bold text-center leading-tight tracking-widest text-sm">
+                        THE<br/><span className="text-cyan-400 text-xl font-black">CORE</span>
                     </span>
                 </div>
 

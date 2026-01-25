@@ -38,7 +38,7 @@ export interface Skill {
 export const skillsData: Skill[] = [
     // Top Priority / Core (Inner Orbit)
     { name: "React", category: "Frontend", Icon: SiReact },
-    { name: "Next.js", category: "Fullstack", Icon: SiNextdotjs },
+    { name: "Next.js", category: "Framework", Icon: SiNextdotjs },
     { name: "TypeScript", category: "Language", Icon: SiTypescript },
     { name: "Node.js", category: "Backend", Icon: SiNodedotjs },
     { name: "Tailwind", category: "Styling", Icon: SiTailwindcss },

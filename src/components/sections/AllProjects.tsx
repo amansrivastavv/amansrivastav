@@ -125,13 +125,13 @@ const ProjectCard = ({ project, index }: { project: typeof allProjects[0], index
                          </div>
 
                          {/* Title */}
-                         <h2 className="text-6xl md:text-8xl lg:text-9xl font-black text-white leading-[0.85] tracking-tighter">
+                         <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-[1.2] md:leading-[1.1] tracking-tighter break-words mb-6 md:mb-10">
                             {project.title}
                             <span className="text-cyan-500">.</span>
                          </h2>
 
                          {/* Description */}
-                         <p className="text-neutral-400 text-lg md:text-xl font-light leading-relaxed max-w-md">
+                         <p className="text-neutral-400 text-lg md:text-xl font-light leading-relaxed max-w-md mt-6 md:mt-8">
                             {project.description}
                          </p>
 
@@ -180,7 +180,7 @@ export const AllProjects = () => {
                     <span className="block font-mono text-cyan-500 text-sm uppercase tracking-[0.2em] mb-6">
                         Selected Works (2025-2026)
                     </span>
-                    <h1 className="text-[12vw] leading-[0.8] font-black tracking-tighter text-white">
+                    <h1 className="text-[12vw] leading-[0.9] font-black tracking-tighter text-white">
                         DIGITAL <br />
                         <span className="text-white/20">REALITY.</span>
                     </h1>

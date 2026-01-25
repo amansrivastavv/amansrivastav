@@ -1,18 +1,12 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 export const About = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
-
   return (
-    <section id="about" ref={containerRef} className="relative bg-[#020202] text-white py-32 md:py-64 overflow-hidden">
+    <section id="about" className="relative bg-[#020202] text-white py-32 md:py-64 overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-24 items-start">
           
@@ -22,7 +16,7 @@ export const About = () => {
                initial={{ opacity: 0, scale: 0.95 }}
                whileInView={{ opacity: 1, scale: 1 }}
                transition={{ duration: 1 }}
-               className="relative aspect-[3/4] md:aspect-[4/5] w-full overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000"
+               className="relative aspect-3/4 md:aspect-4/5 w-full overflow-hidden grayscale hover:grayscale-0 transition-all duration-1000"
              >
                 <Image 
                   src="/images/about/workspace.png" 
@@ -55,10 +49,10 @@ export const About = () => {
                 </h2>
                 <div className="space-y-6 text-lg md:text-xl font-light text-neutral-300 leading-relaxed max-w-xl">
                    <p>
-                      My journey isn't just about syntax; it's about solving real-world problems. From the early days in college to engineering enterprise solutions, I architect experiences that feel alive.
+                      My journey isn&apos;t just about syntax; it&apos;s about solving real-world problems. From the early days in college to engineering enterprise solutions, I architect experiences that feel alive.
                    </p>
                    <p>
-                      Combining technical rigor with an artist's eye, I build applications where every interaction and pixel is deliberate.
+                      Combining technical rigor with an artist&apos;s eye, I build applications where every interaction and pixel is deliberate.
                    </p>
                 </div>
              </div>

@@ -83,11 +83,11 @@ export const Navbar = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
         className={cn(
-          "fixed top-0 inset-x-0 z-[100] transition-all duration-500 ease-in-out font-sans",
+          "fixed top-0 inset-x-0 z-100 transition-all duration-500 ease-in-out font-sans",
           scrolled || isOpen ? "py-4 bg-black/50 backdrop-blur-xl border-b border-white/5" : "py-6 bg-transparent"
         )}
       >
-        <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+        <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
           
           {/* LOGO */}
           <Link 
@@ -155,7 +155,7 @@ export const Navbar = () => {
             animate={{ clipPath: "circle(150% at calc(100% - 3rem) 3rem)" }}
             exit={{ clipPath: "circle(0% at calc(100% - 3rem) 3rem)" }}
             transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 bg-[#0A0A0A] z-[90] flex flex-col justify-center items-center overflow-hidden"
+            className="fixed inset-0 bg-[#0A0A0A] z-90 flex flex-col justify-center items-center overflow-hidden"
           >
              {/* Background decoration */}
              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
