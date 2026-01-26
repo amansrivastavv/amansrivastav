@@ -128,7 +128,7 @@ const TimelineItem = ({ item, index }: { item: typeof timeline[0], index: number
              <div className="space-y-6">
                  <div className="flex flex-wrap justify-center md:justify-start gap-2">
                     {item.tech.map(t => (
-                       <span key={t} className="px-3 py-1 text-[10px] uppercase tracking-wider border border-white/5 bg-white/[0.02] text-neutral-400 rounded-full">
+                       <span key={t} className="px-3 py-1 text-[10px] uppercase tracking-wider border border-white/5 bg-white/5 text-neutral-400 rounded-full">
                           {t}
                        </span>
                     ))}
@@ -148,7 +148,7 @@ const TimelineItem = ({ item, index }: { item: typeof timeline[0], index: number
           {/* Image */}
           <motion.div 
             style={{ y }}
-            className="relative aspect-[4/5] md:aspect-square rounded-sm overflow-hidden group order-1 md:order-2 w-full max-w-sm mx-auto md:max-w-none"
+            className="relative aspect-4/5 md:aspect-square rounded-sm overflow-hidden group order-1 md:order-2 w-full max-w-sm mx-auto md:max-w-none"
           >
              <div className="absolute inset-0 bg-neutral-900 group-hover:bg-transparent transition-colors duration-700 z-10 opacity-20" />
              <Image 
@@ -179,38 +179,59 @@ export function StoryClient() {
       {/* Cinematic Hero */}
       <motion.header 
         style={{ y: heroY, opacity: heroOpacity }}
-        className="w-full h-[80vh] flex flex-col items-center justify-center relative overflow-hidden"
+        className="w-full h-screen flex flex-col items-center justify-center relative overflow-hidden"
       >
-         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-neutral-900/20 via-[#020202] to-[#020202]" />
-         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5" />
+         {/* Background Elements */}
+         <div className="absolute inset-0 bg-[#020202]" />
+         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.05)_0%,transparent_70%)]" />
+         
+         {/* Floating Decorative Elements */}
+         <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] animate-pulse" />
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] animate-pulse delay-700" />
+         </div>
 
-         <div className="relative z-10 text-center space-y-8 px-4">
+         <div className="relative z-10 text-center px-6">
              <motion.div 
                initial={{ opacity: 0, y: 20 }}
                animate={{ opacity: 1, y: 0 }}
-               transition={{ duration: 0.8 }}
-               className="inline-block"
+               transition={{ duration: 1 }}
+               className="mb-8 md:mb-12"
              >
-                <span className="text-[10px] font-mono uppercase tracking-[0.4em] text-cyan-500">
-                   02 . The Journey
+                <span className="text-[10px] md:text-sm font-mono uppercase tracking-[0.5em] text-cyan-500">
+                   02 // The Journey
                 </span>
              </motion.div>
 
-             <h1 className="text-5xl md:text-8xl font-serif font-medium text-white tracking-tight">
-               MY <span className="text-neutral-600 italic">PROFESSIONAL</span><br/>
-               STORY & <span className="text-cyan-500">JOURNEY.</span>
+             <h1 className="text-[12vw] md:text-[10vw] font-black tracking-tighter leading-[0.8] uppercase pointer-events-none select-none">
+                <motion.span 
+                    initial={{ x: -100, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 1, ease: "circOut" }}
+                    className="block text-white"
+                >
+                    Professional
+                </motion.span>
+                <motion.span 
+                    initial={{ x: 100, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 1, ease: "circOut", delay: 0.2 }}
+                    className="block text-transparent stroke-text"
+                >
+                    Story.
+                </motion.span>
              </h1>
          </div>
 
          <motion.div 
            initial={{ opacity: 0 }}
            animate={{ opacity: 1 }}
-           transition={{ delay: 1, duration: 1 }}
-           className="absolute bottom-12"
+           transition={{ delay: 1.5, duration: 1 }}
+           className="absolute bottom-16 flex flex-col items-center gap-4"
          >
-            <ArrowDown className="w-5 h-5 text-neutral-600 animate-bounce" />
+            <span className="text-[10px] uppercase tracking-[0.3em] text-white/20 font-mono">Scroll to explore</span>
+            <div className="w-px h-12 bg-linear-to-b from-cyan-500 to-transparent scale-y-100 animate-pulse origin-top" />
          </motion.div>
-      {/* HERO END */}
       </motion.header>
 
       {/* --- WHO IS AMAN SECTION --- */}
