@@ -101,8 +101,11 @@ export const Workflow = () => {
             Asymmetrical alignment.
             No cards, boxes, or borders.
         */}
-        <div className="space-y-64 md:space-y-[35rem]">
-          {CHAPTERS.map((chapter, i) => (
+        <div className="relative space-y-32 md:space-y-140">
+          {/* Mobile Structural Guide - Provides clear grounding on small screens */}
+          <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-white/10 md:hidden" />
+
+          {CHAPTERS.map((chapter) => (
             <motion.div
               key={chapter.id}
               initial={{ opacity: 0, y: 40 }}
@@ -114,16 +117,16 @@ export const Workflow = () => {
                 ease: [0.19, 1, 0.22, 1] 
               }}
               className={cn(
-                "flex flex-col group",
-                chapter.alignment === "start" ? "items-start" : 
-                chapter.alignment === "end" ? "items-end" : "items-start",
+                "flex flex-col group pl-8 md:pl-0",
+                chapter.alignment === "start" ? "md:items-start" : 
+                chapter.alignment === "end" ? "md:items-end" : "md:items-start",
                 chapter.paddingLeft,
                 chapter.paddingRight
               )}
             >
               <div className={cn(
-                "max-w-3xl space-y-12",
-                chapter.alignment === "end" ? "text-right" : "text-left"
+                "max-w-3xl space-y-8 md:space-y-12",
+                chapter.alignment === "end" ? "md:text-right text-left" : "text-left"
               )}>
                 {/* Metadata */}
                 <span className="block text-[10px] md:text-xs font-mono tracking-[0.4em] text-neutral-600 uppercase">
@@ -131,12 +134,12 @@ export const Workflow = () => {
                 </span>
 
                 {/* Subheading */}
-                <h3 className="text-5xl md:text-7xl lg:text-8xl font-serif font-black tracking-tighter leading-none text-white transition-colors duration-700">
+                <h3 className="text-4xl md:text-7xl lg:text-8xl font-serif font-black tracking-tighter leading-none text-white transition-colors duration-700">
                   {chapter.title}
                 </h3>
 
                 {/* Narrative Paragraph */}
-                <p className="text-xl md:text-3xl font-light leading-snug text-neutral-400 max-w-2xl font-sans">
+                <p className="text-lg md:text-3xl font-light leading-snug text-neutral-400 max-w-2xl font-sans">
                   {chapter.description}
                 </p>
               </div>
