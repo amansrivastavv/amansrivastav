@@ -1,6 +1,7 @@
 
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
+import { Workflow } from "@/components/sections/Workflow";
 import { Projects } from "@/components/sections/Projects";
 import { Skills } from "@/components/sections/Skills";
 import { Contact } from "@/components/sections/Contact";
@@ -14,6 +15,7 @@ export default function Home() {
         <Hero />
         <div className="space-y-12 md:space-y-0">
           <About />
+          <Workflow />
           <Projects />
           <Skills />
           <Contact />

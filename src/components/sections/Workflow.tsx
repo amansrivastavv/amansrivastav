@@ -1,106 +1,157 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ScanSearch, PencilRuler, Binary, Rocket } from "lucide-react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { cn } from "@/lib/utils";
 
-const steps = [
+const CHAPTERS = [
   {
     id: "01",
-    title: "Discovery",
-    subtitle: "The Vision",
-    description: "We strip away the noise. We dive deep into the core objectives, understanding not just what we're building, but why it matters.",
-    icon: <ScanSearch className="w-12 h-12 md:w-24 md:h-24 text-blue-500" />,
-    color: "text-blue-500"
+    subtitle: "AUDIT_01 // COGNITIVE_LOAD",
+    title: "I begin with observation.",
+    description: "Studying user behavior, cognitive load, interface friction, and system constraints before defining structure.",
+    alignment: "start", // Left-aligned
+    paddingLeft: "lg:pl-20",
   },
   {
     id: "02",
-    title: "Architecture",
-    subtitle: "The Skeleton",
-    description: "Planning the DNA of the application. Scalable patterns, robust databases, and a component hierarchy designed for growth.",
-    icon: <PencilRuler className="w-12 h-12 md:w-24 md:h-24 text-amber-500" />,
-    color: "text-amber-500"
+    subtitle: "ARCHITECTURE_02 // SYSTEM_DESIGN",
+    title: "Then I define structure.",
+    description: "Architecting layout grids, component systems, scalable APIs, and state logic before execution.",
+    alignment: "end", // Right-aligned
+    paddingRight: "lg:pr-40",
   },
   {
     id: "03",
-    title: "Development",
-    subtitle: "The Craft",
-    description: "Writing code that feels like poetry. Obsessing over 60fps animations, pixel-perfect layouts, and type-safety.",
-    icon: <Binary className="w-12 h-12 md:w-24 md:h-24 text-cyan-500" />,
-    color: "text-cyan-500"
+    subtitle: "ENGINEERING_03 // PRECISION_MOTION",
+    title: "Then I craft the interface.",
+    description: "Designing fluid interactions with motion, spacing rhythm, accessibility, and performance in mind.",
+    alignment: "center", // Off-center left
+    paddingLeft: "lg:pl-64",
   },
   {
     id: "04",
-    title: "Launch",
-    subtitle: "The Ignition",
-    description: "Global deployment on the Edge. We optimize for speed, SEO, and accessibility, ensuring your vision reaches the world instantly.",
-    icon: <Rocket className="w-12 h-12 md:w-24 md:h-24 text-green-500" />,
-    color: "text-green-500"
+    subtitle: "PRODUCTION_04 // EDGE_DELIVERY",
+    title: "Then I refine and optimize.",
+    description: "Reducing complexity, improving performance, strengthening security, and preparing production-ready systems.",
+    alignment: "start", // Indented left
+    paddingLeft: "lg:pl-32",
   }
 ];
 
-const Step = ({ step, index }: { step: typeof steps[0], index: number }) => {
-    return (
-        <div className="min-h-screen flex items-center justify-center sticky top-0 bg-[#020202] border-t border-white/5">
-            <div className="container mx-auto px-6 max-w-7xl">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
-                    
-                    {/* Left: Typography */}
-                    <motion.div 
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="space-y-8"
-                    >
-                        <div className="flex items-center gap-6">
-                            <span className="text-[10vw] md:text-8xl font-black text-white/5 font-serif select-none">
-                                {step.id}
-                            </span>
-                            <div className={`h-px w-24 ${step.color.replace('text', 'bg')}`} />
-                            <span className={`font-mono text-sm uppercase tracking-[0.3em] ${step.color}`}>
-                                {step.subtitle}
-                            </span>
-                        </div>
-                        
-                        <h2 className="text-5xl md:text-8xl font-serif font-medium text-white leading-tight">
-                            {step.title}
-                        </h2>
-
-                        <p className="text-xl md:text-2xl text-neutral-400 font-light leading-relaxed max-w-lg">
-                            {step.description}
-                        </p>
-                    </motion.div>
-
-                    {/* Right: Icon / Visual */}
-                    <motion.div 
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="flex justify-center md:justify-end"
-                    >
-                        <div className="relative w-48 h-48 md:w-96 md:h-96 rounded-full border border-white/5 flex items-center justify-center bg-white/[0.02]">
-                            <div className={`absolute inset-0 rounded-full border border-dashed opacity-20 animate-[spin_60s_linear_infinite] ${step.color.replace('text', 'border')}`} />
-                            <div className={`absolute inset-4 rounded-full border border-white/5 animate-[pulse_4s_infinite]`} />
-                            
-                            {/* Icon */}
-                            <div className="relative z-10">
-                                {step.icon}
-                            </div>
-                        </div>
-                    </motion.div>
-
-                </div>
-            </div>
-        </div>
-    )
-}
-
 export const Workflow = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Background Ghost Text Parallax
+  const ghostY = useTransform(scrollYProgress, [0, 1], [-100, 100]);
+  const ghostSpring = useSpring(ghostY, { stiffness: 100, damping: 30 });
+
   return (
-    <section className="relative bg-[#020202]">
-      {steps.map((step, i) => (
-        <Step key={i} step={step} index={i} />
-      ))}
+    <section 
+      id="workflow" 
+      ref={containerRef} 
+      className="relative bg-[#020202] text-white py-40 md:py-80 overflow-hidden"
+    >
+      {/* 
+          VISUAL LANGUAGE: 
+          Massive background ghost word with extremely low opacity.
+          Slow subtle parallax.
+      */}
+      <motion.div 
+        style={{ y: ghostSpring }}
+        className="absolute inset-x-0 top-1/4 flex justify-center pointer-events-none select-none z-0"
+      >
+        <span className="text-[35vw] font-serif font-black text-white/2 tracking-tighter leading-none opacity-40">
+          SYSTEM
+        </span>
+      </motion.div>
+
+      <div className="container mx-auto px-6 max-w-7xl relative z-10">
+        
+        {/* 
+            HEADER: 
+            Design Intelligence
+            Translating imagination into structured systems.
+        */}
+        <header className="mb-64 md:mb-96">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: [0.19, 1, 0.22, 1] }}
+            className="space-y-6"
+          >
+            <h2 className="text-6xl md:text-7xl lg:text-[10rem] font-serif font-black tracking-tighter leading-[0.85] uppercase">
+              DESIGN<br/>
+              INTELLIGENCE
+            </h2>
+            <p className="text-[10px] md:text-sm font-mono tracking-[0.5em] text-neutral-500 uppercase">
+              Translating imagination into structured systems.
+            </p>
+          </motion.div>
+        </header>
+
+        {/* 
+            CHAPTERS: 
+            Continuous thought evolving.
+            Asymmetrical alignment.
+            No cards, boxes, or borders.
+        */}
+        <div className="space-y-64 md:space-y-[35rem]">
+          {CHAPTERS.map((chapter, i) => (
+            <motion.div
+              key={chapter.id}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ 
+                duration: 1.5, 
+                delay: 0.1, 
+                ease: [0.19, 1, 0.22, 1] 
+              }}
+              className={cn(
+                "flex flex-col group",
+                chapter.alignment === "start" ? "items-start" : 
+                chapter.alignment === "end" ? "items-end" : "items-start",
+                chapter.paddingLeft,
+                chapter.paddingRight
+              )}
+            >
+              <div className={cn(
+                "max-w-3xl space-y-12",
+                chapter.alignment === "end" ? "text-right" : "text-left"
+              )}>
+                {/* Metadata */}
+                <span className="block text-[10px] md:text-xs font-mono tracking-[0.4em] text-neutral-600 uppercase">
+                  {chapter.subtitle}
+                </span>
+
+                {/* Subheading */}
+                <h3 className="text-5xl md:text-7xl lg:text-8xl font-serif font-black tracking-tighter leading-none text-white transition-colors duration-700">
+                  {chapter.title}
+                </h3>
+
+                {/* Narrative Paragraph */}
+                <p className="text-xl md:text-3xl font-light leading-snug text-neutral-400 max-w-2xl font-sans">
+                  {chapter.description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* 
+            FOOTER HINT:
+            Visual restraint.
+        */}
+        <footer className="mt-96 opacity-10 flex justify-center">
+          <div className="w-px h-32 bg-white/20" />
+        </footer>
+      </div>
     </section>
   );
 };

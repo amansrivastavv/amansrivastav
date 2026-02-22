@@ -101,7 +101,7 @@ export const About = () => {
               {/* Scroll Triggered Background Title */}
               <motion.div 
                 style={{ x: titleX }}
-                className="absolute -top-32 left-0 text-[15vw] font-serif font-black text-white/[0.02] whitespace-nowrap pointer-events-none select-none"
+                className="absolute -top-32 left-0 text-[15vw] font-serif font-black text-white/2 whitespace-nowrap pointer-events-none select-none"
               >
                 ARCHITECTING SYSTEMS
               </motion.div>
@@ -148,7 +148,7 @@ export const About = () => {
                    { label: "OS", value: "LINUX_CORE" }
                  ].map((stat, i) => (
                    <div key={i} className="group cursor-default">
-                      <p className="text-[10px] font-mono text-neutral-600 uppercase tracking-[0.3em] mb-2 group-hover:text-cyan-500 transition-colors uppercase">{stat.label}</p>
+                      <p className="text-[10px] font-mono text-neutral-600 tracking-[0.3em] mb-2 group-hover:text-cyan-500 transition-colors uppercase">{stat.label}</p>
                       <div className="h-px w-full bg-white/5 mb-4 overflow-hidden">
                         <motion.div 
                           initial={{ x: "-100%" }}
