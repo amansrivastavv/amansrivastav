@@ -81,19 +81,14 @@ export const Contact = ({ isPage = false }: { isPage?: boolean }) => {
                 type="submit"
                 disabled={formState !== 'idle'}
                 className={cn(
-                    "w-full p-8 flex items-center justify-between text-left transition-all duration-300 group hover:bg-cyan-500",
-                    formState === 'success' ? "bg-green-500" : "bg-white text-black"
+                    "w-full px-6 py-3 flex items-center justify-between transition-all duration-300 rounded font-semibold uppercase tracking-wide text-sm",
+                    formState === 'success' ? "bg-green-500 text-white" : "bg-white text-black hover:bg-cyan-500 hover:text-white"
                 )}
            >
-               <div>
-                    <span className="block text-xs font-bold uppercase tracking-widest opacity-60">
-                        {formState === 'idle' ? 'Execute' : 'Status'}
-                    </span>
-                    <span className="text-2xl font-black uppercase tracking-tight">
-                        {formState === 'idle' ? 'Transmit Data' : formState === 'submitting' ? 'Uploading...' : 'Transmission Complete'}
-                    </span>
-               </div>
-               <ArrowUpRight className="w-8 h-8 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+               <span>
+                    {formState === 'idle' ? 'Send Message' : formState === 'submitting' ? 'Sending...' : 'Sent!'}
+               </span>
+               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
            </button>
 
         </form>

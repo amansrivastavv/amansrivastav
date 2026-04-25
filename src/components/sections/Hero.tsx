@@ -88,14 +88,14 @@ export const Hero = () => {
                     <h1 className="sr-only">Aman Srivastav — Software Engineer</h1>
                     
                     {/* Visual Text (Hidden from Screen Readers to avoid duplication) */}
-                    <div aria-hidden="true" className="text-[12vw] md:text-[8vw] leading-[0.85] font-serif font-black text-white tracking-tighter mix-blend-difference flex">
+                    <div aria-hidden="true" className="text-5xl md:text-7xl leading-[0.85] font-serif font-black text-white tracking-tighter mix-blend-difference flex">
                         <SplitText>AMAN</SplitText>
                     </div>
                 </div>
                 
                 <div className="overflow-hidden text-right self-end pb-4 md:pb-0">
-                    <div aria-hidden="true" className="text-[11vw] md:text-[8vw] leading-[0.85] font-serif font-black text-neutral-800 tracking-tighter flex justify-end">
-                        <SplitText className="text-neutral-800">SRIVASTAV</SplitText>
+                    <div aria-hidden="true" className="text-4xl md:text-6xl leading-[0.85] font-serif font-black text-neutral-400 tracking-tighter flex justify-end">
+                        <SplitText className="text-neutral-400">SRIVASTAV</SplitText>
                     </div>
                 </div>
             </div>

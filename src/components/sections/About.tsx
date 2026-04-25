@@ -173,21 +173,13 @@ export const About = () => {
                 <div className="pt-10">
                   <a 
                     href="/story" 
-                    className="group relative inline-flex items-center gap-6 md:gap-12 bg-white text-black py-4 md:py-6 px-8 md:px-12 overflow-hidden transition-all duration-500 hover:pr-14"
+                    className="group relative inline-flex items-center gap-4 bg-white text-black py-3 px-8 rounded transition-all duration-300 hover:bg-cyan-500 hover:text-white"
                   >
-                    {/* Visual Hover Slide */}
-                    <div className="absolute inset-0 bg-cyan-500 translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-700 ease-out" />
-                    
-                    <span className="relative z-10 text-[10px] font-mono font-bold tracking-[0.6em] uppercase">
+                    <span className="text-sm font-semibold tracking-wide uppercase">
                       The Full Narrative
                     </span>
-                    <FiArrowRight className="relative z-10 transition-transform duration-500 group-hover:translate-x-3" />
+                    <FiArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </a>
-                  
-                  <div className="mt-8 flex items-center gap-4 opacity-10">
-                    <FiCpu size={12} />
-                    <span className="text-[8px] font-mono tracking-[1em] uppercase">Auth_Finalize_01</span>
-                  </div>
                 </div>
              </div>
           </div>
